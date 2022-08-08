@@ -15,9 +15,6 @@ import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 
-/**
- * hentet fra pensr, og skrevet om litt
- */
 @Component
 class KafkaRestartingErrorHandler : CommonContainerStoppingErrorHandler() {
 

@@ -21,35 +21,23 @@ spec:
   prometheus:
     enabled: true
     path: /internal/prometheus
-  vault:
-    enabled: true
   replicas:
     min: 2
     max: 2
     cpuThresholdPercentage: 50
   resources:
     limits:
-      memory: 2048Mi
-      cpu: "2"
+      memory: 4Gi
+      cpu: "1"
     requests:
-      memory: 1024Mi
+      memory: 2Gi
       cpu: 200m
-  ingresses:
-    - https://bidrag-person-hendelse.dev-fss-pub.nais.io
-    - https://bidrag-person-hendelse.dev.adeo.no
   secureLogs:
     enabled: true
-  tokenx:
-    enabled: true
+  ingresses: # Optional. List of ingress URLs that will route HTTP traffic to the application.
+    - https://bidrag-person-hendelse.intern.nav.no
   env:
     - name: SPRING_PROFILES_ACTIVE
-      value: preprod
-  azure:
-    application:
-      enabled: true
-      allowAllUsers: false
-      claims:
-        groups:
-          - id: "928636f4-fd0d-4149-978e-a6fb68bb19de"  # 0000-GA-STDAPPS
+      value: prod, nais
   kafka:
-    pool: nav-dev
+    pool: nav-prod
