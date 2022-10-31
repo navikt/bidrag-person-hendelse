@@ -1,8 +1,9 @@
 package no.nav.bidrag.person.hendelse.konfigurasjon
 
-import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory
 import org.springframework.context.annotation.Bean
@@ -14,13 +15,12 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @ComponentScan(
     "no.nav.bidrag.person.hendelse"
 )
-@ConfigurationPropertiesScan("no.nav.bidrag")
 @EnableScheduling
-@EnableOAuth2Client(cacheEnabled = true)
 @EnableRetry
-class ApplicationConfig {
+@ConfigurationPropertiesScan
+open class ApplicationConfig {
     @Bean
-    fun servletWebServerFactory(): ServletWebServerFactory {
+    open fun servletWebServerFactory(): ServletWebServerFactory {
         return JettyServletWebServerFactory()
     }
 }

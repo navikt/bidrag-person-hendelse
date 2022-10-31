@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKERS}
+    properties:
+      schema.registry.url: http://localhost:8089
+    consumer:
+      group-id: srvc01
+funksjonsbrytere:
+  kafka.enabled: false
+  enabled: false
+  unleash:
+    uri: http://dummy/api/
+    cluster: localhost
+    applicationName: bidrag-person-hendelse
+
+#logging:
+#  config: "classpath:logback-test.xml"
+KAFKA_BROKERS: http://localhost:9093
+
+# WMQ
+WMQ_HOST: host.docker.internal
+WMQ_PORT: 1414
+WMQ_CHANNEL: DEV.APP.SVRCONN
+WMQ_QUEUEMANAGER: QM1
+WMQ_QUEUE_LIVSHENDELSER: DEV.QUEUE.1
+WMQ_TIMEOUT: 15000
+WMQ_APPLICATION_NAME: bidrag-person-hendelse
+PASSORD_SRVBIDRAG_PERSON_HEN: passw0rd

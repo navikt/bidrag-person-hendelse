@@ -1,5 +1,5 @@
 application:
-  name: familie-ba-mottak
+  name: bidrag-person-hendelse
 
 server:
   servlet:
@@ -11,17 +11,27 @@ spring:
   autoconfigure.exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
   main.banner-mode: "off"
   kafka:
-    client-id: bidrag-person-hendelse
+    bootstrap-servers: ${KAFKA_BROKERS}
     properties:
-      security.protocol: SASL_SSL
-      sasl:
-        mechanism: PLAIN
-        jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CREDENTIAL_USERNAME}" password="${CREDENTIAL_PASSWORD}";
+      schema.registry.url: ${KAFKA_SCHEMA_REGISTRY}
+      basic.auth.credentials.source: USER_INFO
+      basic.auth.user.info: ${KAFKA_SCHEMA_REGISTRY_USER}:${KAFKA_SCHEMA_REGISTRY_PASSWORD}
+      security:
+        protocol: SSL
+      ssl:
+        keystore:
+          type: PKCS12
+          location: ${KAFKA_KEYSTORE_PATH}
+          password: ${KAFKA_CREDSTORE_PASSWORD}
+        truststore:
+          type: PKCS12
+          location: ${KAFKA_TRUSTSTORE_PATH}
+          password: ${KAFKA_CREDSTORE_PASSWORD}
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       max-poll-records: 1
-      auto-offset-reset: none
+      auto-offset-reset: earliest
       enable-auto-commit: false
   http:
     encoding:
@@ -58,3 +68,15 @@ management:
   health:
     db:
       enabled: true
+
+wmq:
+  host: ${WMQ_HOST}
+  port: ${WMQ_PORT}
+  channel: ${WMQ_CHANNEL}
+  queue-manager: ${WMQ_QUEUEMANAGER}
+  username: srvbidrag-person-hen
+  password: ${PASSORD_SRVBIDRAG_PERSON_HEN}
+  timeout: ${WMQ_TIMEOUT}
+  application-name: ${WMQ_APPLICATION_NAME}
+  queueNameLivshendelser: ${WMQ_QUEUE_NAME_LIVSHENDELSER}
+

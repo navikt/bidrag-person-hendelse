@@ -1,0 +1,50 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: bidrag-person-hendelse
+  namespace: bidrag
+  labels:
+    team: bidrag
+
+spec:
+  image: {{ image }}
+  port: 8090
+  leaderElection: true
+  azure:
+    application:
+      enabled: true
+  liveness:
+    path: /internal/health
+    initialDelay: 50
+    failureThreshold: 10
+  readiness:
+    path: /internal/health
+    initialDelay: 50
+    failureThreshold: 10
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 50
+  resources:
+    limits:
+      memory: 2048Mi
+      cpu: "2"
+    requests:
+      memory: 1024Mi
+      cpu: 200m
+  ingresses:
+    - https://bidrag-person-hendelse.dev.intern.nav.no
+  envFrom:
+    - secret: bidrag-person-hendelse-passord-systembruker
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: preprod, nais
+    - name: JAVA_TOOL_OPTIONS
+      value: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+  secureLogs:
+    enabled: true
+  kafka:
+    pool: nav-dev

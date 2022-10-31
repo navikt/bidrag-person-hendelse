@@ -2,7 +2,7 @@ version: 2
 registries:
   familie-felles:
     type: maven-repository
-    url: https://maven.pkg.github.com/navikt/familie-felles
+    url: https://maven.pkg.github.com/navikt/biodrag-person-hendelse
     username: x-access-token
     password: ${{secrets.PAT}}
 
@@ -13,7 +13,7 @@ updates:
       interval: daily
     open-pull-requests-limit: 10
     registries:
-      - familie-felles
+      - bidrag-person-hendelse
   - package-ecosystem: github-actions
     directory: "/"
     schedule:

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  mq:
+    container_name: ibmmq_livshendelse_container
+    image: ibmcom/mq:latest
+    restart: always
+    environment:
+      LICENSE: accept
+      MQ_QMGR_NAME: QM1
+      MQ_APP_PASSWORD: passw0rd
+    ports:
+      - "1415:1415"
+      - "9445:9445"
+    volumes:
+      - qm1data:/mnt/mqm
+volumes:
+  qm1data:

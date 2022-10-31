@@ -22,10 +22,10 @@ import java.time.Duration
     havingValue = "true",
     matchIfMissing = true
 )
-class KafkaConfig {
+open class KafkaConfig {
 
     @Bean
-    fun kafkaIdenthendelseListenerContainerFactory(
+    open fun kafkaIdenthendelseListenerContainerFactory(
         properties: KafkaProperties,
         kafkaRestartingErrorHandler: KafkaRestartingErrorHandler,
         environment: Environment
@@ -44,7 +44,7 @@ class KafkaConfig {
     }
 
     @Bean
-    fun kafkaLeesahListenerContainerFactory(
+    open fun kafkaLeesahListenerContainerFactory(
         properties: KafkaProperties,
         kafkaRestartingErrorHandler: KafkaRestartingErrorHandler,
         environment: Environment

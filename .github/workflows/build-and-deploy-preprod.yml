@@ -1,10 +1,10 @@
-name: Build-Deploy-Preprod
+name: Build-Deploy-Dev
 on:
   pull_request:
     types: [ opened, synchronize, reopened, ready_for_review ]
   workflow_dispatch:
 env:
-  IMAGE: ghcr.io/navikt/familie-ba-mottak:${{ github.sha }}
+  IMAGE: ghcr.io/navikt/bidrag-person-hendelse:${{ github.sha }}
 
 jobs:
   build-dev:
@@ -38,14 +38,19 @@ jobs:
         run: docker push $IMAGE
   deploy-dev:
     if: github.event.pull_request.draft == false
-    name: Deploy to dev-fss
+    name: Deploy to dev-gcp
     needs: build-dev
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
-      - name: Deploy til dev-gcp team namespace
+        with:
+          path: deploy
+
+      - name: Deploy til dev-gcp
+        if: github.ref != 'refs/heads/main'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: app-preprod.yaml
+          RESOURCE: deploy/.nais/preprod.yaml
