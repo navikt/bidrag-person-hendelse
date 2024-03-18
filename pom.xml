@@ -28,7 +28,7 @@
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <kotlin.version>1.9.23</kotlin.version>
         <ktlint.version>1.2.1</ktlint.version>
-        <flyway-maven-plugin.version>10.9.1</flyway-maven-plugin.version>
+        <flyway-maven-plugin.version>10.10.0</flyway-maven-plugin.version>
         <mockk.version>1.13.10</mockk.version>
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
