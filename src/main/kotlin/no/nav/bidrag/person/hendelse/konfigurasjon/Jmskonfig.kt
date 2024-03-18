@@ -1,15 +1,15 @@
 package no.nav.bidrag.person.hendelse.konfigurasjon
 
-import com.ibm.msg.client.jms.JmsConnectionFactory
-import com.ibm.msg.client.jms.JmsFactoryFactory
-import com.ibm.msg.client.wmq.WMQConstants
+import com.ibm.msg.client.jakarta.jms.JmsConnectionFactory
+import com.ibm.msg.client.jakarta.jms.JmsFactoryFactory
+import com.ibm.msg.client.jakarta.wmq.WMQConstants
+import jakarta.jms.JMSException
 import no.nav.bidrag.person.hendelse.konfigurasjon.egenskaper.Wmq
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jms.annotation.EnableJms
 import org.springframework.jms.connection.CachingConnectionFactory
 import org.springframework.jms.core.JmsTemplate
-import javax.jms.JMSException
 
 @EnableJms
 @Configuration
@@ -28,7 +28,7 @@ class Jmskonfig(var wmq: Wmq) {
 
     @Throws(JMSException::class)
     fun forbindelsefabrikk(): JmsConnectionFactory {
-        val fabrikkfabrikk = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER)
+        val fabrikkfabrikk = JmsFactoryFactory.getInstance(WMQConstants.JAKARTA_WMQ_PROVIDER)
         val forbindelsefabrikk = fabrikkfabrikk.createConnectionFactory()
 
         forbindelsefabrikk.setStringProperty(WMQConstants.WMQ_HOST_NAME, wmq.host)

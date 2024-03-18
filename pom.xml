@@ -18,7 +18,7 @@
         <revision>1.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <activemq-client.version>5.17.6</activemq-client.version>
+        <activemq-client-jakarta.version>6.1.0</activemq-client-jakarta.version>
         <bidrag-felles.version>2024.0116.140525</bidrag-felles.version>
         <google.gson.version>2.10.1</google.gson.version>
         <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
@@ -28,19 +28,19 @@
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <kotlin.version>1.9.23</kotlin.version>
         <ktlint.version>1.2.1</ktlint.version>
-        <flyway-maven-plugin.version>10.9.1</flyway-maven-plugin.version>
+        <flyway-maven-plugin.version>10.10.0</flyway-maven-plugin.version>
         <mockk.version>1.13.10</mockk.version>
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.avro.version>1.11.3</apache.avro.version>
-        <availability.version>4.2.0</availability.version>
+        <availability.version>4.2.1</availability.version>
         <confluent.version>7.6.0</confluent.version>
-        <ibm.mq.allclient.version>9.3.5.0</ibm.mq.allclient.version>
+        <ibm.mq.jakarta.client.version>9.3.5.0</ibm.mq.jakarta.client.version>
         <prosessering.version>1.20220624132237_7f5ba9c</prosessering.version>
         <logback.encoder.version>7.4</logback.encoder.version>
         <spring.cloud.version>4.1.1</spring.cloud.version>
-        <spring-cloud-gcp.version>5.0.4</spring-cloud-gcp.version>
-        <spring-jms.version>5.3.31</spring-jms.version>
+        <spring-cloud-gcp.version>5.1.0</spring-cloud-gcp.version>
+        <spring-jms.version>6.1.5</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
         <shedlock.version>5.12.0</shedlock.version>
         <kotest.version>5.8.1</kotest.version>
@@ -124,8 +124,8 @@
         <!--MQ dependencies-->
         <dependency>
             <groupId>com.ibm.mq</groupId>
-            <artifactId>com.ibm.mq.allclient</artifactId>
-            <version>${ibm.mq.allclient.version}</version>
+            <artifactId>com.ibm.mq.jakarta.client</artifactId>
+            <version>${ibm.mq.jakarta.client.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
@@ -134,8 +134,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-client</artifactId>
-            <version>${activemq-client.version}</version>
+            <artifactId>activemq-client-jakarta</artifactId>
+            <version>${activemq-client-jakarta.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

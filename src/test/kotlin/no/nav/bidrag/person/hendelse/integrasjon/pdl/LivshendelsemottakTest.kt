@@ -52,9 +52,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -72,9 +80,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -94,9 +110,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -116,9 +140,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -148,9 +180,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -171,9 +211,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -195,9 +243,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -217,9 +273,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -244,9 +308,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -269,9 +341,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -310,9 +390,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
@@ -359,9 +447,17 @@ class LivshendelsemottakTest {
 
         val cr =
             ConsumerRecord(
-                "pdl.leesah-v1", 1, 229055,
-                Instant.now().toEpochMilli(), TimestampType.CREATE_TIME, 0, 0, "2541031559331",
-                personhendelse, RecordHeaders(), Optional.of(0),
+                "pdl.leesah-v1",
+                1,
+                229055,
+                Instant.now().toEpochMilli(),
+                TimestampType.CREATE_TIME,
+                0,
+                0,
+                "2541031559331",
+                personhendelse,
+                RecordHeaders(),
+                Optional.of(0),
             )
 
         // hvis
