@@ -33,7 +33,7 @@
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.avro.version>1.11.3</apache.avro.version>
-        <availability.version>4.2.0</availability.version>
+        <availability.version>4.2.1</availability.version>
         <confluent.version>7.6.0</confluent.version>
         <ibm.mq.allclient.version>9.3.5.0</ibm.mq.allclient.version>
         <prosessering.version>1.20220624132237_7f5ba9c</prosessering.version>
