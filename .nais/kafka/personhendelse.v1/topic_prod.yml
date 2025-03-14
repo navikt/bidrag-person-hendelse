@@ -29,7 +29,7 @@ spec:
       application: bidrag-regnskap
       access: read
     - team: bidrag
-      application: bidrag-aldersjustering
+      application: bidrag-automatisk-jobb
       access: read
     - team: bidrag
       application: bidrag-kafka-manager
