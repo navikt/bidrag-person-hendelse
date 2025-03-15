@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.4.0</version>
     </parent>
 
     <properties>
@@ -26,7 +26,7 @@
         <jvmTarget>21</jvmTarget>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <kotlin.version>2.0.21</kotlin.version>
+        <kotlin.version>2.1.0</kotlin.version>
         <ktlint.version>1.4.1</ktlint.version>
         <flyway-maven-plugin.version>10.21.0</flyway-maven-plugin.version>
         <mockk.version>1.13.13</mockk.version>
@@ -34,15 +34,15 @@
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.avro.version>1.12.0</apache.avro.version>
         <availability.version>4.2.2</availability.version>
-        <confluent.version>7.7.1</confluent.version>
+        <confluent.version>7.7.2</confluent.version>
         <ibm.mq.allclient.version>9.4.1.0</ibm.mq.allclient.version>
         <prosessering.version>1.20220624132237_7f5ba9c</prosessering.version>
         <logback.encoder.version>8.0</logback.encoder.version>
-        <spring.cloud.version>4.1.4</spring.cloud.version>
+        <spring.cloud.version>4.1.5</spring.cloud.version>
         <spring-cloud-gcp.version>5.8.0</spring-cloud-gcp.version>
         <spring-jms.version>5.3.31</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
-        <shedlock.version>5.16.0</shedlock.version>
+        <shedlock.version>6.0.2</shedlock.version>
         <kotest.version>5.9.1</kotest.version>
         <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
