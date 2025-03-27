@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.4.3</version>
     </parent>
 
     <properties>
@@ -19,17 +19,17 @@
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <activemq-client.version>5.17.6</activemq-client.version>
-        <bidrag-felles.version>2024.0116.140525</bidrag-felles.version>
-        <google.gson.version>2.11.0</google.gson.version>
-        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        <bidrag-felles.version>2025.03.14.125946</bidrag-felles.version>
+        <google.gson.version>2.12.1</google.gson.version>
+        <hibernate-validator.version>8.0.2.Final</hibernate-validator.version>
         <java.version>21</java.version>
         <jvmTarget>21</jvmTarget>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <kotlin.version>2.0.21</kotlin.version>
-        <ktlint.version>1.4.1</ktlint.version>
-        <flyway-maven-plugin.version>10.21.0</flyway-maven-plugin.version>
-        <mockk.version>1.13.13</mockk.version>
+        <ktlint.version>1.5.0</ktlint.version>
+        <flyway-maven-plugin.version>11.0.1</flyway-maven-plugin.version>
+        <mockk.version>1.13.17</mockk.version>
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.avro.version>1.12.0</apache.avro.version>
@@ -42,11 +42,11 @@
         <spring-cloud-gcp.version>5.8.0</spring-cloud-gcp.version>
         <spring-jms.version>5.3.31</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
-        <shedlock.version>5.16.0</shedlock.version>
+        <shedlock.version>6.0.2</shedlock.version>
         <kotest.version>5.9.1</kotest.version>
         <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
-        <token-support.version>3.2.0</token-support.version>
+        <token-support.version>5.0.17</token-support.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     </properties>
 
@@ -425,7 +425,7 @@
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>app</finalName>
 
         <pluginManagement>
             <plugins>
