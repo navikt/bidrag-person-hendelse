@@ -2,7 +2,6 @@ package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.google.gson.GsonBuilder
 import jakarta.persistence.EntityManager
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
 import no.nav.bidrag.person.hendelse.database.Hendelsemottak
@@ -12,6 +11,7 @@ import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.exception.PubliseringFeiletException
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.tilHendelseOpplysningstype
+import no.nav.bidrag.person.hendelse.konfigurasjon.egenskaper.hendelseOjectmapper
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -103,10 +103,6 @@ class BidragKafkaMeldingsprodusent(
         private val log = LoggerFactory.getLogger(this::class.java)
         private val slog: Logger = LoggerFactory.getLogger("secureLogger")
 
-        fun tilJson(endringsmelding: Endringsmelding): String {
-            val gsonbuilder = GsonBuilder()
-            val gson = gsonbuilder.create()
-            return gson.toJson(endringsmelding)
-        }
+        fun tilJson(endringsmelding: Endringsmelding): String = hendelseOjectmapper.writeValueAsString(endringsmelding)
     }
 }
