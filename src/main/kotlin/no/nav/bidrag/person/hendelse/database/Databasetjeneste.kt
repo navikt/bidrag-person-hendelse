@@ -120,7 +120,7 @@ class Databasetjeneste(
         readOnly = true,
         noRollbackFor = [Exception::class],
     )
-    fun hentePubliseringsklareHendelser(): HashMap<Aktor, Set<String>> =
+    fun hentePubliseringsklareHendelser(): HashMap<Aktor, Pair<Set<String>, Hendelsemottak>> =
         tilHashMap(
             hendelsemottakDao.hentePubliseringsklareOverførteHendelser(
                 LocalDateTime
@@ -131,17 +131,19 @@ class Databasetjeneste(
             ),
         )
 
-    private fun tilHashMap(liste: Set<Hendelsemottak>): HashMap<Aktor, Set<String>> {
+    private fun tilHashMap(liste: Set<Hendelsemottak>): HashMap<Aktor, Pair<Set<String>, Hendelsemottak>> {
         val map =
-            HashMap<Aktor, Set<String>>()
+            HashMap<Aktor, Pair<Set<String>, Hendelsemottak>>()
         liste.forEach {
             map.put(
                 it.aktor,
-                it.personidenter
-                    .split(
-                        ',',
-                    ).map { ident -> ident.trim() }
-                    .toSet(),
+                (
+                    it.personidenter
+                        .split(
+                            ',',
+                        ).map { ident -> ident.trim() }
+                        .toSet() to it
+                ),
             )
         }
         return map
