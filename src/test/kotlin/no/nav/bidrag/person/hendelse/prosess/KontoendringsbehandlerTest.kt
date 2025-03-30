@@ -40,7 +40,7 @@ class KontoendringsbehandlerTest {
         val personidentDtoer = tilPersonidentDtoer(setOf(kontoeierAktørid, kontoeierFødselsnummer))
 
         every { mockBidragPersonklient.henteAlleIdenterForPerson(kontoeierFødselsnummer) } returns personidentDtoer
-        every { bidragKafkaMeldingsprodusent.publisereEndringsmelding(any(), any(), any()) } returns Unit
+        every { bidragKafkaMeldingsprodusent.publisereEndringsmelding(any(), any(), any(), any()) } returns Unit
 
         // hvis
         kontoendringsbehandler.publisere(kontoeierFødselsnummer)
@@ -50,6 +50,7 @@ class KontoendringsbehandlerTest {
         verify(exactly = 1) {
             bidragKafkaMeldingsprodusent.publisereEndringsmelding(
                 capture(kontoeier),
+                any(),
                 any(),
                 any(),
             )
