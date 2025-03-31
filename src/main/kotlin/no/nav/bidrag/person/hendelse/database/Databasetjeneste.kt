@@ -128,6 +128,7 @@ class Databasetjeneste(
                     .minusHours(
                         egenskaper.generelt.antallTimerSidenForrigePublisering.toLong(),
                     ),
+                opplynsingstyperAdresse,
             ),
         )
 
