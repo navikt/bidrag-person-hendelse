@@ -2,6 +2,7 @@ package no.nav.bidrag.person.hendelse.prosess
 
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.person.BidragPersonklient
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.BidragKafkaMeldingsprodusent
+import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
 import no.nav.bidrag.transport.person.Identgruppe
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -16,7 +17,14 @@ class Kontoendringsbehandler(
         val alleIdenterKontoeier = bidragPersonklient.henteAlleIdenterForPerson(personidentKontoeier)
         val aktørid = alleIdenterKontoeier?.find { it.gruppe.equals(Identgruppe.AKTORID) }?.ident
         if (aktørid != null) {
-            bidragtopic.publisereEndringsmelding(aktørid, alleIdenterKontoeier.map { it.ident }.toSet())
+            bidragtopic.publisereEndringsmelding(
+                aktørid,
+                alleIdenterKontoeier
+                    .map {
+                        it.ident
+                    }.toSet(),
+                opplysningstype = Endringsmelding.Opplysningstype.KONTOENDRING,
+            )
         } else {
             log.warn("Aktørid null for kontoeier - kontoendring ble ikke publisert.")
             slog.warn("Aktørid null for kontoeier $personidentKontoeier - kontoendring ble ikke publisert")

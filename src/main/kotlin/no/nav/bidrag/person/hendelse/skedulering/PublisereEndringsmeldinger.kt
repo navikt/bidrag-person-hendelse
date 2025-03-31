@@ -40,7 +40,8 @@ class PublisereEndringsmeldinger(
 
         // Publisere melding til intern topic for samtlige personer med endringer
         subsetMedAktørider.forEach {
-            bidragtopic.publisereEndringsmelding(it.aktorid, aktørerPersonopplysninger.getValue(it))
+            val opplysninger = aktørerPersonopplysninger.getValue(it)
+            bidragtopic.publisereEndringsmelding(it.aktorid, opplysninger.first, opplysninger.second)
         }
     }
 

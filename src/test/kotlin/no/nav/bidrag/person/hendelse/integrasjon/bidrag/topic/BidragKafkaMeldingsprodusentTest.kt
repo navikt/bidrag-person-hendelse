@@ -1,5 +1,6 @@
 package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.date.shouldBeAfter
 import io.kotest.matchers.shouldBe
@@ -60,7 +61,7 @@ class BidragKafkaMeldingsprodusentTest {
     internal fun oppsett() {
         MockKAnnotations.init(this)
         clearAllMocks()
-        bidragKafkaMeldingsprodusent = BidragKafkaMeldingsprodusent(kafkaTemplate, databasetjeneste, entityManager)
+        bidragKafkaMeldingsprodusent = BidragKafkaMeldingsprodusent(kafkaTemplate, databasetjeneste, entityManager, ObjectMapper())
         hendelsemottakDao.deleteAll()
         aktorDao.deleteAll()
     }
@@ -82,7 +83,7 @@ class BidragKafkaMeldingsprodusentTest {
             kafkaTemplate.send(BidragKafkaMeldingsprodusent.BIDRAG_PERSONHENDELSE_TOPIC, aktørid, capture(melding))
         }
 
-        val streng = "{\"aktørid\":\"123\",\"personidenter\":[\"875\",\"123\"]}"
+        val streng = "{\"aktørid\":\"123\",\"personidenter\":[\"875\",\"123\"],\"opplysningstype\":\"UKJENT\"}"
 
         Assertions.assertThat(melding.captured).isEqualTo(streng)
     }

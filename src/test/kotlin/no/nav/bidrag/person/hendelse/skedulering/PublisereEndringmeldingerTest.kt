@@ -51,7 +51,7 @@ class PublisereEndringmeldingerTest {
                 databasetjeneste,
                 databasetjeneste.egenskaper,
             )
-        every { meldingsprodusent.publisereEndringsmelding(any(), any()) }
+        every { meldingsprodusent.publisereEndringsmelding(any(), any(), any()) }
     }
 
     @Test
@@ -64,7 +64,7 @@ class PublisereEndringmeldingerTest {
         val personidentDtoAktør = personidentDtoer?.find { it.gruppe == Identgruppe.AKTORID }
 
         teststøtteMeldingsmottak.oppretteOgLagreHendelsemottak(personidentDtoer!!.map { it.ident })
-        every { meldingsprodusent.publisereEndringsmelding(any(), any()) } returns Unit
+        every { meldingsprodusent.publisereEndringsmelding(any(), any(), any()) } returns Unit
 
         // hvis
         publisereEndringsmeldinger.identifisereOgPublisere()
@@ -76,6 +76,7 @@ class PublisereEndringmeldingerTest {
             meldingsprodusent.publisereEndringsmelding(
                 capture(aktørid),
                 capture(identer),
+                any(),
             )
         }
 
@@ -93,7 +94,7 @@ class PublisereEndringmeldingerTest {
         val personidentDtoAktør = personidentDtoer?.find { it.gruppe == Identgruppe.AKTORID }
 
         teststøtteMeldingsmottak.oppretteOgLagreHendelsemottak(personidentDtoer!!.map { it.ident })
-        every { meldingsprodusent.publisereEndringsmelding(any(), any()) } returns Unit
+        every { meldingsprodusent.publisereEndringsmelding(any(), any(), any()) } returns Unit
 
         // hvis
         publisereEndringsmeldinger.identifisereOgPublisere()
@@ -105,6 +106,7 @@ class PublisereEndringmeldingerTest {
             meldingsprodusent.publisereEndringsmelding(
                 capture(aktørid),
                 capture(identer),
+                any(),
             )
         }
 
@@ -130,7 +132,7 @@ class PublisereEndringmeldingerTest {
         aktor.get().publisert = LocalDateTime.now().minusMonths(1)
         databasetjeneste.aktorDao.save(aktor.get())
 
-        every { meldingsprodusent.publisereEndringsmelding(any(), any()) } returns Unit
+        every { meldingsprodusent.publisereEndringsmelding(any(), any(), any()) } returns Unit
 
         // hvis
         publisereEndringsmeldinger.identifisereOgPublisere()
@@ -142,6 +144,7 @@ class PublisereEndringmeldingerTest {
             meldingsprodusent.publisereEndringsmelding(
                 capture(aktørid),
                 capture(identer),
+                any(),
             )
         }
     }

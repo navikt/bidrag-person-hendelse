@@ -1,10 +1,17 @@
 package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic
 
-import com.google.gson.GsonBuilder
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import jakarta.persistence.EntityManager
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
+import no.nav.bidrag.person.hendelse.database.Hendelsemottak
+import no.nav.bidrag.person.hendelse.database.erAdresseendring
+import no.nav.bidrag.person.hendelse.domene.Endringstype
+import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.exception.PubliseringFeiletException
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
+import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.tilHendelseOpplysningstype
+import no.nav.bidrag.person.hendelse.konfigurasjon.egenskaper.hendelseOjectmapper
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -19,6 +26,7 @@ class BidragKafkaMeldingsprodusent(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     private val databasetjeneste: Databasetjeneste,
     private val entityManager: EntityManager,
+    private val objectMapper: ObjectMapper,
 ) {
     @Transactional
     @Retryable(
@@ -29,16 +37,46 @@ class BidragKafkaMeldingsprodusent(
     fun publisereEndringsmelding(
         aktørid: String,
         personidenter: Set<String>,
+        hendelse: Hendelsemottak? = null,
+        opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
-        publisereMelding(aktørid, personidenter)
+        publisereMelding(aktørid, personidenter, hendelse, opplysningstype)
+    }
+
+    private fun Hendelsemottak.hentAdresseendring(): Endringsmelding.Adresseendring? {
+        try {
+            if (this.endringstype == Endringstype.OPPRETTET && this.opplysningstype.erAdresseendring()) {
+                val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
+                return Endringsmelding.Adresseendring(
+                    flyttedato = hendelse.flyttedato,
+                    utflytting = hendelse.utflytting,
+                    innflytting = hendelse.innflytting,
+                    type =
+                        hendelse.opplysningstype.tilHendelseOpplysningstype(),
+                )
+            }
+        } catch (e: Exception) {
+            log.warn("Feil ved henting av endringsdetaljer for hendelse ${this.hendelseid}: ${e.message}")
+        }
+        return null
     }
 
     private fun publisereMelding(
         aktørid: String,
         personidenter: Set<String>,
+        hendelse: Hendelsemottak? = null,
+        opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
-        slog.info("Publiserer endringsmelding for aktørid $aktørid")
-        val melding = tilJson(Endringsmelding(aktørid, personidenter))
+        val melding =
+            tilJson(
+                Endringsmelding(
+                    aktørid,
+                    personidenter,
+                    hendelse?.hentAdresseendring(),
+                    opplysningstype ?: hendelse?.opplysningstype?.tilHendelseOpplysningstype() ?: Endringsmelding.Opplysningstype.UKJENT,
+                ),
+            )
+        slog.info("Publiserer endringsmelding $melding for aktørid $aktørid")
         try {
             val future = kafkaTemplate.send(BIDRAG_PERSONHENDELSE_TOPIC, aktørid, melding)
 
@@ -65,10 +103,6 @@ class BidragKafkaMeldingsprodusent(
         private val log = LoggerFactory.getLogger(this::class.java)
         private val slog: Logger = LoggerFactory.getLogger("secureLogger")
 
-        fun tilJson(endringsmelding: Endringsmelding): String {
-            val gsonbuilder = GsonBuilder()
-            val gson = gsonbuilder.create()
-            return gson.toJson(endringsmelding)
-        }
+        fun tilJson(endringsmelding: Endringsmelding): String = hendelseOjectmapper.writeValueAsString(endringsmelding)
     }
 }

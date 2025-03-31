@@ -71,3 +71,20 @@ enum class Status {
     OVERFØRING_FEILET,
     PUBLISERT,
 }
+
+fun Livshendelse.Opplysningstype.erAdresseendring() =
+    when (this) {
+        Livshendelse.Opplysningstype.BOSTEDSADRESSE_V1,
+        Livshendelse.Opplysningstype.OPPHOLDSADRESSE_V1,
+        Livshendelse.Opplysningstype.KONTAKTADRESSE_V1,
+        Livshendelse.Opplysningstype.INNFLYTTING_TIL_NORGE,
+        Livshendelse.Opplysningstype.UTFLYTTING_FRA_NORGE,
+        Livshendelse.Opplysningstype.ADRESSEBESKYTTELSE_V1,
+        -> {
+            true
+        }
+
+        else -> {
+            false
+        }
+    }
