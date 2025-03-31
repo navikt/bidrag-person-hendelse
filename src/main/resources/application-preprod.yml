@@ -22,5 +22,5 @@ WMQ_APPLICATION_NAME: bidrag-person-hendelse
 WMQ_QUEUE_NAME_LIVSHENDELSER: QA.Q2_BISYS.PDL_LIVSHENDELSER
 
 # bidrag-person
-BIDRAG_PERSON_URL: https://bidrag-person.dev-fss-pub.nais.io/bidrag-person
-BIDRAG_PERSON_SCOPE: dev-fss.bidrag.bidrag-person
+BIDRAG_PERSON_URL: https://bidrag-person-q2.dev-fss-pub.nais.io/bidrag-person
+BIDRAG_PERSON_SCOPE: dev-fss.bidrag.bidrag-person-q2
