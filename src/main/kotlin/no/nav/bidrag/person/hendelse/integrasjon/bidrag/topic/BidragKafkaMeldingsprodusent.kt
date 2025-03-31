@@ -43,11 +43,11 @@ class BidragKafkaMeldingsprodusent(
         publisereMelding(aktørid, personidenter, hendelse, opplysningstype)
     }
 
-    private fun Hendelsemottak.hentAdresseendring(): Endringsmelding.AdresseEndring? {
+    private fun Hendelsemottak.hentAdresseendring(): Endringsmelding.Adresseendring? {
         try {
             if (this.endringstype == Endringstype.OPPRETTET && this.opplysningstype.erAdresseendring()) {
                 val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
-                return Endringsmelding.AdresseEndring(
+                return Endringsmelding.Adresseendring(
                     flyttedato = hendelse.flyttedato,
                     utflytting = hendelse.utflytting,
                     innflytting = hendelse.innflytting,
