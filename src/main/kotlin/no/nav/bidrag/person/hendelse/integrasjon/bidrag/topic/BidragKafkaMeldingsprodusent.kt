@@ -124,14 +124,17 @@ class BidragKafkaMeldingsprodusent(
                 Endringsmelding(
                     aktørid,
                     personidenter,
-                    hendelse?.hendelsemottaksliste?.map {
-                        Endringsmelding.Endring(
-                            it.hentAdresseendring(),
-                            it.hentSivilstandsendring(),
-                            it.hentIdentendring(),
-                            it.opplysningstype.tilHendelseOpplysningstype(),
-                        )
-                    } ?: listOf(
+                    hendelse
+                        ?.hendelsemottaksliste
+                        ?.filter { it.endringstype == Endringstype.OPPRETTET }
+                        ?.map {
+                            Endringsmelding.Endring(
+                                it.hentAdresseendring(),
+                                it.hentSivilstandsendring(),
+                                it.hentIdentendring(),
+                                it.opplysningstype.tilHendelseOpplysningstype(),
+                            )
+                        } ?: listOf(
                         Endringsmelding.Endring(
                             opplysningstype = opplysningstype ?: Endringsmelding.Opplysningstype.UKJENT,
                         ),
