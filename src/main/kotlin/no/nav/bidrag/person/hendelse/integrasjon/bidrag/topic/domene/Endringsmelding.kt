@@ -13,7 +13,14 @@ data class Endringsmelding(
     data class Endring(
         val adresseendring: Adresseendring? = null,
         val sivilstandendring: Sivilstandendring? = null,
+        val identendring: Identendring? = null,
         val opplysningstype: Opplysningstype = Opplysningstype.UKJENT,
+    )
+
+    data class Identendring(
+        val identifikasjonsnummer: String? = null,
+        val type: String? = null,
+        val status: String? = null,
     )
 
     data class Sivilstandendring(
