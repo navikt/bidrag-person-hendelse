@@ -61,7 +61,7 @@ class Livshendelsemottak(
 
         val opplysningstype = konvertereOpplysningstype(personhendelse.opplysningstype)
 
-        if (Livshendelse.Opplysningstype.IKKE_STØTTET.equals(opplysningstype)) {
+        if (Livshendelse.Opplysningstype.IKKE_STØTTET == opplysningstype) {
             log.info("Mottok opplysningstype som ikke støttes av løsningen - avbryter videre prosessering.")
             return
         }
@@ -157,12 +157,7 @@ class Livshendelsemottak(
             Livshendelse.Gradering.valueOf(adressebeskyttelse.gradering.name)
         }
 
-    private fun henteDødsdato(doedsfall: Doedsfall?): LocalDate? =
-        if (doedsfall == null) {
-            null
-        } else {
-            doedsfall.doedsdato
-        }
+    private fun henteDødsdato(doedsfall: Doedsfall?): LocalDate? = doedsfall?.doedsdato
 
     private fun henteFlyttedato(
         bostedsadresse: Bostedsadresse?,

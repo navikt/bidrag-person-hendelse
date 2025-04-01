@@ -120,7 +120,7 @@ class Databasetjeneste(
         readOnly = true,
         noRollbackFor = [Exception::class],
     )
-    fun hentePubliseringsklareHendelser(): HashMap<Aktor, Pair<Set<String>, Hendelsemottak>> =
+    fun hentePubliseringsklareHendelser(): HashMap<Aktor, HendelseMottakerForAktor> =
         tilHashMap(
             hendelsemottakDao.hentePubliseringsklareOverførteHendelser(
                 LocalDateTime
@@ -131,23 +131,19 @@ class Databasetjeneste(
             ),
         )
 
-    private fun tilHashMap(liste: Set<Hendelsemottak>): HashMap<Aktor, Pair<Set<String>, Hendelsemottak>> {
-        val map =
-            HashMap<Aktor, Pair<Set<String>, Hendelsemottak>>()
-        liste.forEach {
-            map.put(
-                it.aktor,
-                (
-                    it.personidenter
-                        .split(
-                            ',',
-                        ).map { ident -> ident.trim() }
-                        .toSet() to it
-                ),
-            )
-        }
-        return map
-    }
+    private fun tilHashMap(liste: Set<Hendelsemottak>): HashMap<Aktor, HendelseMottakerForAktor> =
+        liste
+            .associate {
+                it.aktor to
+                    HendelseMottakerForAktor(
+                        it.personidenter
+                            .split(
+                                ',',
+                            ).map { ident -> ident.trim() }
+                            .toSet(),
+                        liste.filter { l -> l.aktor == it.aktor },
+                    )
+            }.toMutableMap() as HashMap<Aktor, HendelseMottakerForAktor>
 
     private fun kansellereTidligereHendelse(livshendelse: Livshendelse): Status {
         val tidligereHendelseMedStatusMottatt =
@@ -185,3 +181,8 @@ class Databasetjeneste(
             )
     }
 }
+
+data class HendelseMottakerForAktor(
+    val personidenter: Set<String>,
+    val hendelsemottaksliste: List<Hendelsemottak>,
+)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import jakarta.persistence.EntityManager
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
+import no.nav.bidrag.person.hendelse.database.HendelseMottakerForAktor
 import no.nav.bidrag.person.hendelse.database.Hendelsemottak
 import no.nav.bidrag.person.hendelse.database.erAdresseendring
 import no.nav.bidrag.person.hendelse.domene.Endringstype
@@ -37,10 +38,48 @@ class BidragKafkaMeldingsprodusent(
     fun publisereEndringsmelding(
         aktørid: String,
         personidenter: Set<String>,
-        hendelse: Hendelsemottak? = null,
+        hendelse: HendelseMottakerForAktor? = null,
         opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
         publisereMelding(aktørid, personidenter, hendelse, opplysningstype)
+    }
+
+    private fun Hendelsemottak.hentIdentendring(): Endringsmelding.Identendring? {
+        try {
+            if (this.endringstype == Endringstype.OPPRETTET &&
+                this.opplysningstype == Livshendelse.Opplysningstype.FOLKEREGISTERIDENTIFIKATOR_V1
+            ) {
+                val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
+                return hendelse.folkeregisteridentifikator?.let {
+                    Endringsmelding.Identendring(
+                        it.identifikasjonsnummer,
+                        it.type,
+                        it.status,
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            log.warn("Feil ved henting av identendring fra hendelse ${this.hendelseid}: ${e.message}")
+        }
+        return null
+    }
+
+    private fun Hendelsemottak.hentSivilstandsendring(): Endringsmelding.Sivilstandendring? {
+        try {
+            if (this.endringstype == Endringstype.OPPRETTET && this.opplysningstype == Livshendelse.Opplysningstype.SIVILSTAND_V1) {
+                val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
+                return hendelse.sivilstand?.let {
+                    Endringsmelding.Sivilstandendring(
+                        it.sivilstand,
+                        it.bekreftelsesdato,
+                        it.gyldigFraOgMedDato,
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            log.warn("Feil ved henting av sivilstandsendringer fra hendelse ${this.hendelseid}: ${e.message}")
+        }
+        return null
     }
 
     private fun Hendelsemottak.hentAdresseendring(): Endringsmelding.Adresseendring? {
@@ -56,7 +95,7 @@ class BidragKafkaMeldingsprodusent(
                 )
             }
         } catch (e: Exception) {
-            log.warn("Feil ved henting av endringsdetaljer for hendelse ${this.hendelseid}: ${e.message}")
+            log.warn("Feil ved henting av adresseendring fra hendelse ${this.hendelseid}: ${e.message}")
         }
         return null
     }
@@ -64,7 +103,7 @@ class BidragKafkaMeldingsprodusent(
     private fun publisereMelding(
         aktørid: String,
         personidenter: Set<String>,
-        hendelse: Hendelsemottak? = null,
+        hendelse: HendelseMottakerForAktor? = null,
         opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
         val melding =
@@ -72,8 +111,18 @@ class BidragKafkaMeldingsprodusent(
                 Endringsmelding(
                     aktørid,
                     personidenter,
-                    hendelse?.hentAdresseendring(),
-                    opplysningstype ?: hendelse?.opplysningstype?.tilHendelseOpplysningstype() ?: Endringsmelding.Opplysningstype.UKJENT,
+                    hendelse?.hendelsemottaksliste?.map {
+                        Endringsmelding.Endring(
+                            it.hentAdresseendring(),
+                            it.hentSivilstandsendring(),
+                            it.hentIdentendring(),
+                            it.opplysningstype.tilHendelseOpplysningstype(),
+                        )
+                    } ?: listOf(
+                        Endringsmelding.Endring(
+                            opplysningstype = opplysningstype ?: Endringsmelding.Opplysningstype.UKJENT,
+                        ),
+                    ),
                 ),
             )
         slog.info("Publiserer endringsmelding $melding for aktørid $aktørid")
