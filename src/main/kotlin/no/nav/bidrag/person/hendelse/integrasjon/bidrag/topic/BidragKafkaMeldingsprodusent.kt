@@ -88,8 +88,21 @@ class BidragKafkaMeldingsprodusent(
                 val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
                 return Endringsmelding.Adresseendring(
                     flyttedato = hendelse.flyttedato,
-                    utflytting = hendelse.utflytting,
-                    innflytting = hendelse.innflytting,
+                    utflytting =
+                        hendelse.utflytting?.let {
+                            Endringsmelding.Utflytting(
+                                tilflyttingsland = it.tilflyttingsland,
+                                tilflyttingsstedIUtlandet = it.tilflyttingsstedIUtlandet,
+                                utflyttingsdato = it.utflyttingsdato,
+                            )
+                        },
+                    innflytting =
+                        hendelse.innflytting?.let {
+                            Endringsmelding.Innflytting(
+                                fraflyttingsland = it.fraflyttingsland,
+                                fraflyttingsstedIUtlandet = it.fraflyttingsstedIUtlandet,
+                            )
+                        },
                     type =
                         hendelse.opplysningstype.tilHendelseOpplysningstype(),
                 )

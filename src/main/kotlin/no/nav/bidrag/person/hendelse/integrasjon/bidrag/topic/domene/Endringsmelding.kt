@@ -1,8 +1,6 @@
 package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene
 
-import no.nav.bidrag.person.hendelse.domene.Innflytting
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
-import no.nav.bidrag.person.hendelse.domene.Utflytting
 import java.time.LocalDate
 
 data class Endringsmelding(
@@ -52,6 +50,17 @@ data class Endringsmelding(
         KONTOENDRING,
         UKJENT,
     }
+
+    data class Utflytting(
+        val tilflyttingsland: String? = null,
+        val tilflyttingsstedIUtlandet: String? = null,
+        val utflyttingsdato: LocalDate? = null,
+    )
+
+    data class Innflytting(
+        val fraflyttingsland: String? = null,
+        val fraflyttingsstedIUtlandet: String? = null,
+    )
 }
 
 fun Livshendelse.Opplysningstype.tilHendelseOpplysningstype() =
