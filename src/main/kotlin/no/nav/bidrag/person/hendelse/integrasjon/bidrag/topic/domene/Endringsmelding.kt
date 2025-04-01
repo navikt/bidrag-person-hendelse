@@ -8,9 +8,13 @@ import java.time.LocalDate
 data class Endringsmelding(
     val aktørid: String,
     val personidenter: Set<String>,
-    val adresseendring: Adresseendring? = null,
-    val opplysningstype: Opplysningstype = Opplysningstype.UKJENT,
+    val endringer: List<Endring> = emptyList(),
 ) {
+    data class Endring(
+        val adresseendring: Adresseendring? = null,
+        val opplysningstype: Opplysningstype = Opplysningstype.UKJENT,
+    )
+
     data class Adresseendring(
         val type: Opplysningstype,
         val flyttedato: LocalDate? = null,

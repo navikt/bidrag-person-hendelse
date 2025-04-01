@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import jakarta.persistence.EntityManager
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
+import no.nav.bidrag.person.hendelse.database.HendelseMottakerForAktor
 import no.nav.bidrag.person.hendelse.database.Hendelsemottak
 import no.nav.bidrag.person.hendelse.database.erAdresseendring
 import no.nav.bidrag.person.hendelse.domene.Endringstype
@@ -37,7 +38,7 @@ class BidragKafkaMeldingsprodusent(
     fun publisereEndringsmelding(
         aktørid: String,
         personidenter: Set<String>,
-        hendelse: Hendelsemottak? = null,
+        hendelse: HendelseMottakerForAktor? = null,
         opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
         publisereMelding(aktørid, personidenter, hendelse, opplysningstype)
@@ -64,7 +65,7 @@ class BidragKafkaMeldingsprodusent(
     private fun publisereMelding(
         aktørid: String,
         personidenter: Set<String>,
-        hendelse: Hendelsemottak? = null,
+        hendelse: HendelseMottakerForAktor? = null,
         opplysningstype: Endringsmelding.Opplysningstype? = null,
     ) {
         val melding =
@@ -72,8 +73,16 @@ class BidragKafkaMeldingsprodusent(
                 Endringsmelding(
                     aktørid,
                     personidenter,
-                    hendelse?.hentAdresseendring(),
-                    opplysningstype ?: hendelse?.opplysningstype?.tilHendelseOpplysningstype() ?: Endringsmelding.Opplysningstype.UKJENT,
+                    hendelse?.hendelsemottaksliste?.map {
+                        Endringsmelding.Endring(
+                            it.hentAdresseendring(),
+                            it.opplysningstype.tilHendelseOpplysningstype(),
+                        )
+                    } ?: listOf(
+                        Endringsmelding.Endring(
+                            opplysningstype = opplysningstype ?: Endringsmelding.Opplysningstype.UKJENT,
+                        ),
+                    ),
                 ),
             )
         slog.info("Publiserer endringsmelding $melding for aktørid $aktørid")
