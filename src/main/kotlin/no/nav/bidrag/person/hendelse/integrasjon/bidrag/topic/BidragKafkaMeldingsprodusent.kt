@@ -44,6 +44,24 @@ class BidragKafkaMeldingsprodusent(
         publisereMelding(aktørid, personidenter, hendelse, opplysningstype)
     }
 
+    private fun Hendelsemottak.hentSivilstandsendring(): Endringsmelding.Sivilstandendring? {
+        try {
+            if (this.endringstype == Endringstype.OPPRETTET && this.opplysningstype == Livshendelse.Opplysningstype.SIVILSTAND_V1) {
+                val hendelse: Livshendelse = objectMapper.readValue(this.hendelse)
+                return hendelse.sivilstand?.let {
+                    Endringsmelding.Sivilstandendring(
+                        it.sivilstand,
+                        it.bekreftelsesdato,
+                        it.gyldigFraOgMedDato,
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            log.warn("Feil ved henting av sivilstandsendringer for hendelse ${this.hendelseid}: ${e.message}")
+        }
+        return null
+    }
+
     private fun Hendelsemottak.hentAdresseendring(): Endringsmelding.Adresseendring? {
         try {
             if (this.endringstype == Endringstype.OPPRETTET && this.opplysningstype.erAdresseendring()) {
@@ -57,7 +75,7 @@ class BidragKafkaMeldingsprodusent(
                 )
             }
         } catch (e: Exception) {
-            log.warn("Feil ved henting av endringsdetaljer for hendelse ${this.hendelseid}: ${e.message}")
+            log.warn("Feil ved henting av adresseendring for hendelse ${this.hendelseid}: ${e.message}")
         }
         return null
     }
@@ -76,6 +94,7 @@ class BidragKafkaMeldingsprodusent(
                     hendelse?.hendelsemottaksliste?.map {
                         Endringsmelding.Endring(
                             it.hentAdresseendring(),
+                            it.hentSivilstandsendring(),
                             it.opplysningstype.tilHendelseOpplysningstype(),
                         )
                     } ?: listOf(
