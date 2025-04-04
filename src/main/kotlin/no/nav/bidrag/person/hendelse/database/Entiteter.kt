@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
+import org.hibernate.annotations.ColumnTransformer
 import java.time.LocalDateTime
 
 @Entity
@@ -51,7 +52,8 @@ class Hendelsemottak(
     @Column(name = "opprettet", nullable = false, updatable = false)
     val opprettet: LocalDateTime = LocalDateTime.now(),
     val tidligereHendelseid: String? = null,
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
     val hendelse: String = "",
     val master: String = "",
     val offset_pdl: Long = 0L,

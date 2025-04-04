@@ -98,7 +98,9 @@ spring:
   config.activate.on-profile: lokal-h2, test
 
   ### H2 ###
-  flyway.enabled: false
+  flyway:
+    enabled: true
+    locations: classpath:db/test
   spring:
     datasource:
       datasource.type: com.zaxxer.hikari.HikariDataSource
