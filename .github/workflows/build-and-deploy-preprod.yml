@@ -7,48 +7,12 @@ env:
   GITHUB_USERNAME: x-access-token
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
-  build-dev:
+  build-deploy:
+    name: "Build and deploy to q1"
     permissions:
       contents: "read"
       id-token: "write"
-    if: github.event.pull_request.draft == false
-    name: Build and push
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: 'temurin'
-          cache: 'maven'
-      - name: Bygg med maven
-        run: mvn -B -e --no-transfer-progress package --settings .m2/maven-settings.xml --file pom.xml
-      - uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-         team: bidrag
-         identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-         project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-    outputs:
-      image: ${{ steps.docker-push.outputs.image }}
-  deploy-dev:
-    if: github.event.pull_request.draft == false
-    name: Deploy to dev-gcp
-    needs: build-dev
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/checkout@v4
-        with:
-          path: deploy
-
-      - name: Deploy til dev-gcp
-        if: github.ref != 'refs/heads/main'
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
-          RESOURCE: deploy/.nais/preprod.yaml
-          IMAGE: ${{ needs.build-dev.outputs.image }}
+    uses: navikt/bidrag-workflow/.github/workflows/deploy.yaml@main
+    secrets: inherit
+    with:
+      nais_variabler_filnavn: preprod.yaml

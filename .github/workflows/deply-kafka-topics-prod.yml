@@ -14,7 +14,6 @@ jobs:
       - name: deploy Bidrag personhendelse Kafka topic to dev
         uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: .nais/kafka/personhendelse.v1/topic_prod.yml
           PRINT_PAYLOAD: true
