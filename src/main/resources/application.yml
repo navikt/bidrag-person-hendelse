@@ -123,6 +123,7 @@ egenskaper:
   generelt:
     antallMinutterForsinketVideresending: ${ANTALL_MINUTTER_FORSINKET_VIDERESENDING}
     antallDagerLevetidForUtgaatteHendelser: ${DAGER_LEVETID_UTGÅTTE_HENDELSER}
+    antallTimerSidenForrigePublisering: ${ANTALL_TIMER_SIDEN_FORRIGE_PUBLISERING}
   integrasjon:
     wmq:
       host: ${WMQ_HOST}

@@ -20,6 +20,7 @@ SLETTE_HENDELSER_LÅS_MAX: PT1M
 DAGER_LEVETID_UTGÅTTE_HENDELSER: 2
 BIDRAG_PERSON_URL: http://localhost
 AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: http://localhost:${mock-oauth2-server.port}/aad/token
+ANTALL_TIMER_SIDEN_FORRIGE_PUBLISERING: -1
 
 spring:
   config.activate.on-profile: lokal-h2, lokal-postgres, test
@@ -97,7 +98,9 @@ spring:
   config.activate.on-profile: lokal-h2, test
 
   ### H2 ###
-  flyway.enabled: false
+  flyway:
+    enabled: true
+    locations: classpath:db/test
   spring:
     datasource:
       datasource.type: com.zaxxer.hikari.HikariDataSource

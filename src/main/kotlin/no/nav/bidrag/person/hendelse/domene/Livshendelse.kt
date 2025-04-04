@@ -52,6 +52,9 @@ data class Livshendelse(
         SIVILSTAND_V1,
         UTFLYTTING_FRA_NORGE,
         VERGEMAAL_ELLER_FREMTIDSFULLMAKT_V1,
+
+//        FORELDERBARNRELASJON_V1,
+//        FOEDSELSDATO_V1,
         IKKE_STØTTET,
     }
 

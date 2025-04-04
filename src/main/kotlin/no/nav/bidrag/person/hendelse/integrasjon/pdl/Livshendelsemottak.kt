@@ -63,6 +63,7 @@ class Livshendelsemottak(
 
         if (Livshendelse.Opplysningstype.IKKE_STØTTET == opplysningstype) {
             log.info("Mottok opplysningstype som ikke støttes av løsningen - avbryter videre prosessering.")
+            slog.info("Mottok opplysningstype som ikke støttes av løsningen - avbryter videre prosessering. $personhendelse")
             return
         }
 
