@@ -1,5 +1,6 @@
 package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene
 
+import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import java.time.LocalDate
 
@@ -13,6 +14,7 @@ data class Endringsmelding(
         val sivilstandendring: Sivilstandendring? = null,
         val identendring: Identendring? = null,
         val opplysningstype: Opplysningstype = Opplysningstype.UKJENT,
+        val endringstype: Endringstype = Endringstype.OPPRETTET,
     )
 
     data class Identendring(

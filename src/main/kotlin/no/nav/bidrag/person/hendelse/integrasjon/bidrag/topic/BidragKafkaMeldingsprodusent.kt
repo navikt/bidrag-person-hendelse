@@ -126,13 +126,13 @@ class BidragKafkaMeldingsprodusent(
                     personidenter,
                     hendelse
                         ?.hendelsemottaksliste
-                        ?.filter { it.endringstype == Endringstype.OPPRETTET }
                         ?.map {
                             Endringsmelding.Endring(
-                                it.hentAdresseendring(),
-                                it.hentSivilstandsendring(),
-                                it.hentIdentendring(),
-                                it.opplysningstype.tilHendelseOpplysningstype(),
+                                adresseendring = it.hentAdresseendring(),
+                                sivilstandendring = it.hentSivilstandsendring(),
+                                identendring = it.hentIdentendring(),
+                                opplysningstype = it.opplysningstype.tilHendelseOpplysningstype(),
+                                endringstype = it.endringstype,
                             )
                         } ?: listOf(
                         Endringsmelding.Endring(

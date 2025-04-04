@@ -1,0 +1,26 @@
+NAIS_APP_NAME: bidrag-aktoerregister-local
+TOPIC_PERSONHENDELSE: bidrag.personhendelse.v1
+TOPIC_SAMHANDLER: bidrag.samhandler-test
+KAFKA_GROUP_ID: bidrag-aktoerregister-local
+DB_DATABASE: bidrag-person-hendelse
+DB_HOST: localhost
+DB_PORT: 5454
+KAFKA_BROKERS: localhost:9092
+funksjonsbrytere:
+  kafka.enabled: true
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKERS}
+    properties:
+      security.protocol: PLAINTEXT
+    consumer:
+      enableAutoCommit: false
+    listener:
+      ackMode: RECORD
+
+  flyway.enabled: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:${DB_PORT:5454}/${DB_DATABASE:bidrag-person-hendelse}?user=${DB_USERNAME:cloudsqliamuser}&password=${DB_PASSWORD:admin}
+#  jpa.hibernate.hbmddl-auto: create-drop
+server.port: 8913
