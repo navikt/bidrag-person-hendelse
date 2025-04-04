@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy til dev-gcp
         if: github.ref != 'refs/heads/main'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: deploy/.nais/preprod.yaml

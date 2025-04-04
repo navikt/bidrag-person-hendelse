@@ -37,7 +37,7 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
       - name: Deploy til prod-gcp
         if: github.ref == 'refs/heads/main'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/prod.yaml
