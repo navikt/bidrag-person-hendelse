@@ -83,7 +83,9 @@ class BidragKafkaMeldingsprodusentTest {
             kafkaTemplate.send(BidragKafkaMeldingsprodusent.BIDRAG_PERSONHENDELSE_TOPIC, aktørid, capture(melding))
         }
 
-        val streng = "{\"aktørid\":\"123\",\"personidenter\":[\"875\",\"123\"],\"endringer\":[{\"opplysningstype\":\"UKJENT\",\"endringstype\":\"OPPRETTET\"}]}"
+        val streng =
+            "{\"aktørid\":\"123\",\"personidenter\":[\"875\",\"123\"],\"endringer\":" +
+                "[{\"opplysningstype\":\"UKJENT\",\"endringstype\":\"OPPRETTET\"}]}"
 
         Assertions.assertThat(melding.captured).isEqualTo(streng)
     }
