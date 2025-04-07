@@ -1,6 +1,5 @@
 package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene
 
-import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import java.time.LocalDate
 
@@ -35,6 +34,13 @@ data class Endringsmelding(
         val utflytting: Utflytting? = null,
         val innflytting: Innflytting? = null,
     )
+
+    enum class Endringstype {
+        OPPRETTET,
+        KORRIGERT,
+        ANNULLERT,
+        OPPHOERT,
+    }
 
     enum class Opplysningstype {
         ADRESSEBESKYTTELSE,
