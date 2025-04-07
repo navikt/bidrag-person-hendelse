@@ -132,7 +132,13 @@ class BidragKafkaMeldingsprodusent(
                                 sivilstandendring = it.hentSivilstandsendring(),
                                 identendring = it.hentIdentendring(),
                                 opplysningstype = it.opplysningstype.tilHendelseOpplysningstype(),
-                                endringstype = it.endringstype,
+                                endringstype =
+                                    when (it.endringstype) {
+                                        Endringstype.OPPRETTET -> Endringsmelding.Endringstype.OPPRETTET
+                                        Endringstype.KORRIGERT -> Endringsmelding.Endringstype.KORRIGERT
+                                        Endringstype.ANNULLERT -> Endringsmelding.Endringstype.ANNULLERT
+                                        Endringstype.OPPHOERT -> Endringsmelding.Endringstype.OPPHOERT
+                                    },
                             )
                         } ?: listOf(
                         Endringsmelding.Endring(
