@@ -1,74 +1,27 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: bidrag-person-hendelse
-  namespace: bidrag
-  labels:
-    team: bidrag
+:name: bidrag-person-hendelse
 
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
-  image: {{ image }}
-  port: 8090
-  leaderElection: true
-  azure:
-    application:
-      enabled: true
-  liveness:
-    path: /internal/health
-    initialDelay: 60
-    failureThreshold: 10
-    timeout: 15
-  readiness:
-    path: /internal/health
-    initialDelay: 60
-    failureThreshold: 10
-    timeout: 15
-  prometheus:
-    enabled: true
-    path: /internal/prometheus
-  replicas:
-    min: 2
-    max: 2
-    cpuThresholdPercentage: 70
-  resources:
-    limits:
-      memory: 2Gi
-    requests:
-      memory: 700Mi
-      cpu: 100m
-  ingresses:
-    - https://bidrag-person-hendelse.intern.dev.nav.no
-  envFrom:
-    - secret: bidrag-person-hendelse-passord-systembruker
-  env:
-    - name: SPRING_PROFILES_ACTIVE
-      value: preprod, i-sky
-    - name: JAVA_TOOL_OPTIONS
-      value: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
-  secureLogs:
-    enabled: true
-  kafka:
-    pool: nav-dev
-  gcp:
-    permissions:
-      - resource:
-          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-          kind: Project
-        role: roles/cloudsql.client
-    sqlInstances:
-      - type: POSTGRES_15
-        tier: db-custom-1-3840
-        databases:
-          - name: person-hendelse-preprod
-            envVarPrefix: DB
-  accessPolicy:
-    outbound:
-      external:
-        - host: b27apvl222.preprod.local
-          ports:
-            - port: 1413
-        - host: bidrag-person.dev-fss-pub.nais.io
+ingresses:
+  - https://bidrag-person-hendelse.intern.dev.nav.no
+
+replicas:
+  min: 2
+  max: 2
+limits:
+  memory: 2048Mi
+  cpu: 800m
+requests:
+  memory: 1024Mi
+  cpu: 200m
+kafka:
+  pool: nav-dev
+
+env:
+  SPRING_PROFILES_ACTIVE: preprod, nais
+  JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+  BIDRAG_PERSON_HOST: bidrag-person-q2.dev-fss-pub.nais.io
+  MQ_HOST: b27apvl222.preprod.local
+
+database:
+  tier: db-custom-1-3840
+  navn: person-hendelse-preprod
+  auditlog: "off"
