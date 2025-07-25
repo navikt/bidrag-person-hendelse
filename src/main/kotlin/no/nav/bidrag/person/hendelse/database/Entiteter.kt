@@ -24,8 +24,8 @@ class Aktor(
     var publisert: LocalDateTime? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0,
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "aktor", cascade = arrayOf(CascadeType.MERGE))
+    val id: Long? = null,
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "aktor", cascade = [CascadeType.MERGE])
     val hendelsemottak: Set<Hendelsemottak> = HashSet(),
 ) {
     override fun equals(other: Any?): Boolean {
@@ -47,7 +47,7 @@ class Hendelsemottak(
     val endringstype: Endringstype,
     @Column(name = "personidenter", nullable = false, columnDefinition = "TEXT")
     val personidenter: String,
-    @ManyToOne(cascade = arrayOf(CascadeType.MERGE, CascadeType.PERSIST))
+    @ManyToOne(cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     var aktor: Aktor,
     @Column(name = "opprettet", nullable = false, updatable = false)
     val opprettet: LocalDateTime = LocalDateTime.now(),
@@ -63,7 +63,7 @@ class Hendelsemottak(
     var statustidspunkt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
+    val id: Long? = null,
 )
 
 enum class Status {
