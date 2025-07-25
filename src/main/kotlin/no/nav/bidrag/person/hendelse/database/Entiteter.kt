@@ -24,7 +24,7 @@ class Aktor(
     var publisert: LocalDateTime? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0,
+    val id: Long? = null,
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "aktor", cascade = arrayOf(CascadeType.MERGE))
     val hendelsemottak: Set<Hendelsemottak> = HashSet(),
 ) {
@@ -63,7 +63,7 @@ class Hendelsemottak(
     var statustidspunkt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
+    val id: Long? = null,
 )
 
 enum class Status {
