@@ -59,6 +59,7 @@ class OverføreHendelserTest {
         clearAllMocks()
         databasetjeneste = Databasetjeneste(aktorDao, hendelsemottakDao, egenskaper, entityManager)
         hendelsemottakDao.deleteAll()
+        aktorDao.deleteAll()
         overføreHendelser = OverføreHendelser(databasetjeneste, egenskaper, meldingsprodusent)
         every { meldingsprodusent.sendeMeldinger(any(), any()) } returns 1
     }
