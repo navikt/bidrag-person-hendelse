@@ -7,7 +7,7 @@
     <groupId>no.nav</groupId>
     <packaging>jar</packaging>
     <artifactId>bidrag-person-hendelse</artifactId>
-    <version>${revision}${sha1}${changelist}</version>
+    <version>${revision}${changelist}</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
