@@ -1,5 +1,6 @@
 package no.nav.bidrag.person.hendelse.testdata
 
+import java.util.zip.CRC32
 import no.nav.bidrag.person.hendelse.database.Aktor
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
 import no.nav.bidrag.person.hendelse.database.Hendelsemottak
@@ -7,7 +8,8 @@ import no.nav.bidrag.person.hendelse.database.Status
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import org.springframework.stereotype.Component
-import java.util.zip.CRC32
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class TeststøtteMeldingsmottak(
@@ -23,6 +25,8 @@ class TeststøtteMeldingsmottak(
         }
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun oppretteOgLagreHendelsemottak(
         personidenter: List<String>,
         status: Status = Status.OVERFØRT,
