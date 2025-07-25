@@ -1,4 +1,4 @@
-:name: bidrag-person-hendelse
+name: bidrag-person-hendelse
 
 ingresses:
   - https://bidrag-person-hendelse.intern.dev.nav.no
