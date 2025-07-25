@@ -67,7 +67,7 @@ class OverføreHendelserTest {
     @Transactional
     fun `skal sette status til OVERFØRING_FEILET dersom exception oppstår under sending`() {
         // gitt
-        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ce"
+        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ca"
         val hendelseMottattUtenforVenteperiode =
             Livshendelse(
                 hendelseid1,
@@ -145,7 +145,7 @@ class OverføreHendelserTest {
     @Transactional
     fun skalOverføreHendelserMedStatusMottattOgUtløptVentetid() {
         // gitt
-        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ce"
+        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ca"
         val hendelseMottattUtenforVenteperiode =
             Livshendelse(
                 hendelseid1,
@@ -214,7 +214,7 @@ class OverføreHendelserTest {
     @Transactional
     fun `skal ikke overføre flere hendelser enn maks antall om gangen`() {
         // gitt
-        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ce"
+        val hendelseid1 = "c096ca6f-9801-4543-9a44-116f4ed806ca"
         val hendelse1 =
             Livshendelse(
                 hendelseid1,
