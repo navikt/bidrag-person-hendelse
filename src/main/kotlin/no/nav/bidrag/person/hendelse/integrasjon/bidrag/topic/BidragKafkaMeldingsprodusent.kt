@@ -10,9 +10,9 @@ import no.nav.bidrag.person.hendelse.database.erAdresseendring
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.exception.PubliseringFeiletException
-import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.tilHendelseOpplysningstype
 import no.nav.bidrag.person.hendelse.konfigurasjon.egenskaper.hendelseOjectmapper
+import no.nav.bidrag.transport.person.hendelse.Endringsmelding
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -2,8 +2,8 @@ package no.nav.bidrag.person.hendelse.prosess
 
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.person.BidragPersonklient
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.BidragKafkaMeldingsprodusent
-import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
 import no.nav.bidrag.transport.person.Identgruppe
+import no.nav.bidrag.transport.person.hendelse.Endringsmelding
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
