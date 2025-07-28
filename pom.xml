@@ -24,7 +24,7 @@
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <kotlin.version>2.1.21</kotlin.version>
         <ktlint.version>1.7.1</ktlint.version>
-        <flyway-maven-plugin.version>11.10.3</flyway-maven-plugin.version>
+        <flyway-maven-plugin.version>11.10.4</flyway-maven-plugin.version>
         <mockk.version>1.14.5</mockk.version>
         <apache.avro.version>1.12.0</apache.avro.version>
         <confluent.version>7.9.2</confluent.version>
