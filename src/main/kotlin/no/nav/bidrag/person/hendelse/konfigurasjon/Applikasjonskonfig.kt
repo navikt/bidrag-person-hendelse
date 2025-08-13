@@ -36,7 +36,7 @@ class Applikasjonskonfig {
     fun servletWebServerFactory(): ServletWebServerFactory = JettyServletWebServerFactory()
 
     companion object {
-        const val PROFIL_I_SKY = "i-sky"
+        const val PROFIL_I_SKY = "nais"
         const val PROFIL_LOKAL_POSTGRES = "lokal-postgres"
     }
 
