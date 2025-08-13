@@ -20,7 +20,7 @@ env:
   JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
   BIDRAG_PERSON_HOST: bidrag-person-q2.dev-fss-pub.nais.io
   MQ_HOST: b27apvl222.preprod.local
-
+  MQ_PORT: 1413
 database:
   tier: db-custom-1-3840
   navn: person-hendelse-preprod

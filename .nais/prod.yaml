@@ -19,7 +19,7 @@ env:
   SPRING_PROFILES_ACTIVE: prod, nais
   BIDRAG_PERSON_HOST: bidrag-person.prod-fss-pub.nais.io
   MQ_HOST: mpls04.adeo.no
-
+  MQ_PORT: 1414
 database:
   tier: db-custom-1-3840
   navn: person-hendelse-prod

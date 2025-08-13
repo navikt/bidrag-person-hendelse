@@ -25,6 +25,8 @@ spec:
       external:
         - host: {{ env.BIDRAG_PERSON_HOST }}
         - host: {{ env.MQ_HOST }}
+          ports:
+             - port: {{env.MQ_PORT}}
       rules:
        - application: logging
          namespace: nais-system
