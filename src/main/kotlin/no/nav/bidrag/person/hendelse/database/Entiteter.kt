@@ -74,7 +74,7 @@ enum class Status {
     PUBLISERT,
 }
 
-val opplynsingstyperAdresse =
+val opplysningstyperAdresse =
     listOf(
         Livshendelse.Opplysningstype.BOSTEDSADRESSE_V1,
         Livshendelse.Opplysningstype.OPPHOLDSADRESSE_V1,
@@ -84,4 +84,4 @@ val opplynsingstyperAdresse =
         Livshendelse.Opplysningstype.ADRESSEBESKYTTELSE_V1,
     )
 
-fun Livshendelse.Opplysningstype.erAdresseendring() = opplynsingstyperAdresse.contains(this)
+fun Livshendelse.Opplysningstype.erAdresseendring() = opplysningstyperAdresse.contains(this)

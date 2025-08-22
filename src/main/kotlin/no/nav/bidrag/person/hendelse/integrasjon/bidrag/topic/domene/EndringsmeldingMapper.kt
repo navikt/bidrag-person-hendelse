@@ -8,7 +8,7 @@ fun Livshendelse.Opplysningstype.tilHendelseOpplysningstype() =
         Livshendelse.Opplysningstype.ADRESSEBESKYTTELSE_V1 -> Endringsmelding.Opplysningstype.ADRESSEBESKYTTELSE
         Livshendelse.Opplysningstype.BOSTEDSADRESSE_V1 -> Endringsmelding.Opplysningstype.BOSTEDSADRESSE
         Livshendelse.Opplysningstype.DOEDSFALL_V1 -> Endringsmelding.Opplysningstype.DOEDSFALL
-        Livshendelse.Opplysningstype.FOEDSEL_V1 -> Endringsmelding.Opplysningstype.FOEDSEL
+        Livshendelse.Opplysningstype.FOEDSELSDATO_V1 -> Endringsmelding.Opplysningstype.FOEDSELSDATO
         Livshendelse.Opplysningstype.FOLKEREGISTERIDENTIFIKATOR_V1 -> Endringsmelding.Opplysningstype.FOLKEREGISTERIDENTIFIKATOR
         Livshendelse.Opplysningstype.INNFLYTTING_TIL_NORGE -> Endringsmelding.Opplysningstype.INNFLYTTING_TIL_NORGE
         Livshendelse.Opplysningstype.KONTAKTADRESSE_V1 -> Endringsmelding.Opplysningstype.KONTAKTADRESSE

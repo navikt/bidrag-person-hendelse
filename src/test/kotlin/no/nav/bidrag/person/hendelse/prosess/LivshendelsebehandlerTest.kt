@@ -5,7 +5,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
 import no.nav.bidrag.person.hendelse.domene.Endringstype
-import no.nav.bidrag.person.hendelse.domene.Foedsel
+import no.nav.bidrag.person.hendelse.domene.Foedselsdato
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.domene.Livshendelse.Opplysningstype
 import no.nav.bidrag.person.hendelse.domene.Sivilstand
@@ -75,15 +75,15 @@ class LivshendelsebehandlerTest {
     }
 
     @Test
-    fun `Skal prosessere fødselsmelding`() {
+    fun `Skal prosessere fødselsdatomelding`() {
         val hendelseId = UUID.randomUUID().toString()
 
         val livshendelse =
-            oppretteLivshendelseForFødsel(
+            oppretteLivshendelseForFødselsdato(
                 hendelseId,
-                Opplysningstype.FOEDSEL_V1,
+                Opplysningstype.FOEDSELSDATO_V1,
                 Endringstype.OPPRETTET,
-                Foedsel("NOR", LocalDate.now()),
+                Foedselsdato(LocalDate.now()),
             )
 
         service.prosesserNyHendelse(livshendelse)
@@ -93,35 +93,11 @@ class LivshendelsebehandlerTest {
         }
     }
 
-    @Test
-    fun `Skal ignorere fødselshendelser utenfor norge`() {
-        val hendelseId = UUID.randomUUID().toString()
-
-        val livshendelse =
-            oppretteLivshendelseForFødsel(
-                hendelseId,
-                Opplysningstype.FOEDSEL_V1,
-                Endringstype.OPPRETTET,
-                Foedsel("POL", LocalDate.now()),
-            )
-
-        service.prosesserNyHendelse(livshendelse)
-        verify(exactly = 0) { mockDatabasetjeneste.lagreHendelse(livshendelse) }
-
-        val livshendelseMedFødelandNorgeMenUtenFødselsdato = livshendelse.copy(foedsel = Foedsel("NOR"))
-        service.prosesserNyHendelse(livshendelseMedFødelandNorgeMenUtenFødselsdato)
-        verify(exactly = 0) { mockDatabasetjeneste.lagreHendelse(livshendelseMedFødelandNorgeMenUtenFødselsdato) }
-
-        val livshendelseUtenFødeland = livshendelse.copy(foedsel = Foedsel(null))
-        service.prosesserNyHendelse(livshendelseUtenFødeland)
-        verify(exactly = 0) { mockDatabasetjeneste.lagreHendelse(livshendelseUtenFødeland) }
-    }
-
-    fun oppretteLivshendelseForFødsel(
+    fun oppretteLivshendelseForFødselsdato(
         hendelseId: String,
         opplysningstype: Opplysningstype,
         endringstype: Endringstype,
-        foedsel: Foedsel,
+        foedselsdato: Foedselsdato,
     ): Livshendelse =
         Livshendelse(
             hendelseId,
@@ -134,7 +110,7 @@ class LivshendelsebehandlerTest {
             null,
             null,
             null,
-            foedsel,
+            foedselsdato,
         )
 
     fun oppretteLivshendelseForDødsfall(

@@ -3,6 +3,7 @@ protocol PersonhendelseProto {
   import idl "adressebeskyttelse/Adressebeskyttelse.avdl";
   import idl "doedsfall/Doedsfall.avdl";
   import idl "foedsel/Foedsel.avdl";
+  import idl "foedselsdato/Foedselsdato.avdl";
   import idl "verge/VergemaalEllerFremtidsfullmakt.avdl";
   import idl "sivilstand/Sivilstand.avdl";
   import idl "utflytting/Utflytting.avdl";
@@ -35,6 +36,7 @@ protocol PersonhendelseProto {
     union { null, no.nav.person.pdl.leesah.adressebeskyttelse.Adressebeskyttelse } adressebeskyttelse = null;
     union { null, no.nav.person.pdl.leesah.doedsfall.Doedsfall } doedsfall = null;
     union { null, no.nav.person.pdl.leesah.foedsel.Foedsel } foedsel = null;
+    union { null, no.nav.person.pdl.leesah.foedselsdato.Foedselsdato } foedselsdato = null;
     union { null, no.nav.person.pdl.leesah.sivilstand.Sivilstand } sivilstand = null;
     union { null, no.nav.person.pdl.leesah.verge.VergemaalEllerFremtidsfullmakt } vergemaalEllerFremtidsfullmakt = null;
     union { null, no.nav.person.pdl.leesah.utflytting.UtflyttingFraNorge } utflyttingFraNorge = null;

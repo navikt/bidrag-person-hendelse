@@ -2,7 +2,7 @@ package no.nav.bidrag.person.hendelse.domene
 
 import java.time.LocalDate
 
-data class Foedsel(
-    val foedeland: String? = null,
+data class Foedselsdato(
     val foedselsdato: LocalDate? = null,
+    val foedselsaar: Int? = null,
 )
