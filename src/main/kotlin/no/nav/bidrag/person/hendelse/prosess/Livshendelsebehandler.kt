@@ -20,7 +20,6 @@ class Livshendelsebehandler(
             Opplysningstype.ADRESSEBESKYTTELSE_V1 -> behandleAdressebeskyttelse(livshendelse)
             Opplysningstype.BOSTEDSADRESSE_V1 -> behandleAdresse(livshendelse, Opplysningstype.BOSTEDSADRESSE_V1)
             Opplysningstype.DOEDSFALL_V1 -> behandleDødsfall(livshendelse)
-            Opplysningstype.FOEDSEL_V1 -> behandleFødsel(livshendelse)
             Opplysningstype.FOEDSELSDATO_V1 -> behandleFødselsdato(livshendelse)
             Opplysningstype.FOLKEREGISTERIDENTIFIKATOR_V1 -> behandleFolkeregisteridentifikator(livshendelse)
             Opplysningstype.INNFLYTTING_TIL_NORGE -> behandleInnflytting(livshendelse)
@@ -344,65 +343,6 @@ class Livshendelsebehandler(
                     "Ignorerer navnehendelse med id ${livshendelse.hendelseid} " +
                         "av type ${livshendelse.opplysningstype}. Endringstype: ${livshendelse.endringstype}",
                 )
-            }
-        }
-    }
-
-    private fun behandleFødsel(livshendelse: Livshendelse) {
-        tellerFødsel.increment()
-
-        if (databasetjeneste.hendelsemottakDao.existsByHendelseidAndOpplysningstype(
-                livshendelse.hendelseid,
-                livshendelse.opplysningstype,
-            )
-        ) {
-            tellerLeesahDuplikat.increment()
-            log.info(
-                "Mottok duplikat livshendelse (hendelseid: ${livshendelse.hendelseid}) " +
-                    "med opplysningstype ${livshendelse.opplysningstype}. Ignorerer denne.",
-            )
-            return
-        }
-
-        when (livshendelse.endringstype) {
-            Endringstype.ANNULLERT -> tellerFødselAnnulert.increment()
-            Endringstype.KORRIGERT -> tellerFødselKorrigert.increment()
-            Endringstype.OPPHOERT -> tellerFødselOpphørt.increment()
-            Endringstype.OPPRETTET -> tellerFødselOpprettet.increment()
-        }
-
-        when (livshendelse.endringstype) {
-            Endringstype.OPPRETTET, Endringstype.KORRIGERT -> {
-                sikkerLoggingAvLivshendelse(livshendelse, "fødselsdato: ${livshendelse.foedsel?.foedselsdato}")
-                val fødselsdato = livshendelse.foedsel?.foedselsdato
-                if (fødselsdato == null) {
-                    tellerFødselIgnorert.increment()
-                    log.warn("Mangler fødselsdato. Ignorerer hendelse ${livshendelse.hendelseid}")
-                } else if (erUnder6mnd(fødselsdato)) {
-                    tellerFødselIgnorert.increment()
-                    if (erUtenforNorge(livshendelse.foedsel.foedeland)) {
-                        log.info("Fødeland er ikke Norge. Ignorerer hendelse ${livshendelse.hendelseid}")
-                    } else {
-                        databasetjeneste.lagreHendelse(livshendelse)
-                    }
-                }
-            }
-
-            Endringstype.ANNULLERT -> {
-                sikkerLoggingAvLivshendelse(livshendelse)
-                if (livshendelse.tidligereHendelseid == null) {
-                    log.warn("Mottatt annullert fødsel uten tidligereHendelseId, hendelseId ${livshendelse.hendelseid}")
-                } else {
-                    databasetjeneste.lagreHendelse(livshendelse)
-                }
-            }
-
-            else -> {
-                log.info(
-                    "Ignorerer livshendelse med id ${livshendelse.hendelseid} " +
-                        "av type ${livshendelse.opplysningstype}. Endringstype: ${livshendelse.endringstype}",
-                )
-                sikkerLoggingAvLivshendelse(livshendelse)
             }
         }
     }

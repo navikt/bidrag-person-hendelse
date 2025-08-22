@@ -175,37 +175,6 @@ class LivshendelsemottakTest {
     }
 
     @Test
-    fun `skal håndtere fødsel`() {
-        // gitt
-        val personhendelse = hentePersonhendelseForFødsel()
-
-        val cr =
-            ConsumerRecord(
-                "pdl.leesah-v1",
-                1,
-                229055,
-                Instant.now().toEpochMilli(),
-                TimestampType.CREATE_TIME,
-                0,
-                0,
-                "2541031559331",
-                personhendelse,
-                RecordHeaders(),
-                Optional.of(0),
-            )
-
-        // hvis
-        livshendelsemottak.listen(personhendelse, cr)
-
-        // så
-        val livshendelseSomSendesTilBehandling = slot<Livshendelse>()
-        verify(exactly = 1) { livshendelsebehandler.prosesserNyHendelse(capture(livshendelseSomSendesTilBehandling)) }
-        assertThat(livshendelseSomSendesTilBehandling.captured.opplysningstype).isEqualTo(Opplysningstype.FOEDSEL_V1)
-        assertThat(livshendelseSomSendesTilBehandling.captured.foedsel?.foedeland).isEqualTo(personhendelse.foedsel.foedeland)
-        assertThat(livshendelseSomSendesTilBehandling.captured.foedsel?.foedselsdato).isEqualTo(personhendelse.foedsel.foedselsdato)
-    }
-
-    @Test
     fun `skal håndtere fødselsdato`() {
         // gitt
         val personhendelse = hentePersonhendelseForFødselsdato()
@@ -552,17 +521,6 @@ class LivshendelsemottakTest {
                     .setType("FNR")
                     .build()
             personhendelse.opplysningstype = Opplysningstype.FOLKEREGISTERIDENTIFIKATOR_V1.name
-
-            return personhendelse
-        }
-
-        fun hentePersonhendelseForFødsel(): Personhendelse {
-            val fødsel = Foedsel()
-            fødsel.foedeland = "NOR"
-            fødsel.foedselsdato = LocalDate.now()
-            val personhendelse = henteMetadataTilPersonhendelse()
-            personhendelse.foedsel = fødsel
-            personhendelse.opplysningstype = Opplysningstype.FOEDSEL_V1.name
 
             return personhendelse
         }
