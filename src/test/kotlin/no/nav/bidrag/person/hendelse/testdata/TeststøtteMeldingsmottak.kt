@@ -7,6 +7,8 @@ import no.nav.bidrag.person.hendelse.database.Status
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.util.zip.CRC32
 
 @Component
@@ -23,6 +25,7 @@ class TeststøtteMeldingsmottak(
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun oppretteOgLagreHendelsemottak(
         personidenter: List<String>,
         status: Status = Status.OVERFØRT,

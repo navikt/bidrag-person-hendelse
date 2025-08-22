@@ -1,79 +1,26 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: bidrag-person-hendelse
-  namespace: bidrag
-  labels:
-    team: bidrag
+name: bidrag-person-hendelse
 
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
-  image: {{ image }}
-  port: 8090
-  leaderElection: true
-  azure:
-    application:
-      enabled: true
-  liveness:
-    path: /internal/health
-    initialDelay: 50
-    failureThreshold: 10
-    timeout: 10
-  readiness:
-    path: /internal/health
-    initialDelay: 50
-    failureThreshold: 10
-    timeout: 15
-  prometheus:
-    enabled: true
-    path: /internal/prometheus
-  replicas:
-    min: 2
-    max: 2
-    cpuThresholdPercentage: 50
-  resources:
-    limits:
-      memory: 2500Mi
-    requests:
-      memory: 700Mi
-      cpu: 100m
-  secureLogs:
-    enabled: true
-  ingresses: # Optional. List of ingress URLs that will route HTTP traffic to the application.
-    - https://bidrag-person-hendelse.intern.nav.no
-  envFrom:
-    - secret: bidrag-person-hendelse-passord-systembruker
-  env:
-    - name: SPRING_PROFILES_ACTIVE
-      value: prod, i-sky
-  kafka:
-    pool: nav-prod
-  gcp:
-    permissions:
-      - resource:
-          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-          kind: Project
-        role: roles/cloudsql.client
-    sqlInstances:
-      - type: POSTGRES_15
-        tier: db-custom-1-3840
-        databases:
-          - name: person-hendelse-prod
-            envVarPrefix: DB
-        flags:
-          - name: "cloudsql.enable_pgaudit"
-            value: "on"
-          - name: "pgaudit.log"
-            value: "write"
-          - name: "pgaudit.log_parameter"
-            value: "on"
-  accessPolicy:
-    outbound:
-      external:
-        - host: mpls04.adeo.no
-          ports:
-            - port: 1414
-        - host: bidrag-person.prod-fss-pub.nais.io
+ingresses: # Optional. List of ingress URLs that will route HTTP traffic to the application.
+  - https://bidrag-person-hendelse.intern.nav.no
+
+replicas:
+  min: 2
+  max: 2
+limits:
+  memory: 2048Mi
+  cpu: 800m
+requests:
+  memory: 1024Mi
+  cpu: 200m
+kafka:
+  pool: nav-prod
+
+env:
+  SPRING_PROFILES_ACTIVE: prod, nais
+  BIDRAG_PERSON_HOST: bidrag-person.prod-fss-pub.nais.io
+  MQ_HOST: mpls04.adeo.no
+  MQ_PORT: 1414
+database:
+  tier: db-custom-1-3840
+  navn: person-hendelse-prod
+  auditlog: "on"

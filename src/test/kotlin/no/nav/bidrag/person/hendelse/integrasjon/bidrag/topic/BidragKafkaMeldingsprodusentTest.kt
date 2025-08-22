@@ -61,7 +61,7 @@ class BidragKafkaMeldingsprodusentTest {
     internal fun oppsett() {
         MockKAnnotations.init(this)
         clearAllMocks()
-        bidragKafkaMeldingsprodusent = BidragKafkaMeldingsprodusent(kafkaTemplate, databasetjeneste, entityManager, ObjectMapper())
+        bidragKafkaMeldingsprodusent = BidragKafkaMeldingsprodusent(kafkaTemplate, databasetjeneste, ObjectMapper())
         hendelsemottakDao.deleteAll()
         aktorDao.deleteAll()
     }

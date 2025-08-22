@@ -2,7 +2,6 @@ package no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import jakarta.persistence.EntityManager
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
 import no.nav.bidrag.person.hendelse.database.HendelseMottakerForAktor
 import no.nav.bidrag.person.hendelse.database.Hendelsemottak
@@ -10,9 +9,9 @@ import no.nav.bidrag.person.hendelse.database.erAdresseendring
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.exception.PubliseringFeiletException
-import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.Endringsmelding
 import no.nav.bidrag.person.hendelse.integrasjon.bidrag.topic.domene.tilHendelseOpplysningstype
 import no.nav.bidrag.person.hendelse.konfigurasjon.egenskaper.hendelseOjectmapper
+import no.nav.bidrag.transport.person.hendelse.Endringsmelding
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -26,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional
 class BidragKafkaMeldingsprodusent(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     private val databasetjeneste: Databasetjeneste,
-    private val entityManager: EntityManager,
     private val objectMapper: ObjectMapper,
 ) {
     @Transactional
@@ -147,7 +145,7 @@ class BidragKafkaMeldingsprodusent(
                     ),
                 ),
             )
-        slog.info("Publiserer endringsmelding $melding for aktørid $aktørid")
+        slog.trace("Publiserer endringsmelding $melding for aktørid $aktørid")
         try {
             val future = kafkaTemplate.send(BIDRAG_PERSONHENDELSE_TOPIC, aktørid, melding)
 
