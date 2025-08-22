@@ -221,7 +221,7 @@ class Livshendelsemottak(
         if (foedselsdato == null) {
             null
         } else {
-            Foedselsdato(foedselsdato.foedselsaar, foedselsdato.foedselsdato)
+            Foedselsdato(foedselsdato.foedselsdato, foedselsdato.foedselsaar)
         }
 
     private fun henteInnflytting(innflytting: no.nav.person.pdl.leesah.innflytting.InnflyttingTilNorge?): Innflytting? =

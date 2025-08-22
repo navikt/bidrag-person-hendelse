@@ -408,7 +408,7 @@ class Livshendelsebehandler(
     }
 
     private fun behandleFødselsdato(livshendelse: Livshendelse) {
-        tellerFødsel.increment()
+        tellerFødselsdato.increment()
 
         if (databasetjeneste.hendelsemottakDao.existsByHendelseidAndOpplysningstype(
                 livshendelse.hendelseid,
@@ -424,10 +424,10 @@ class Livshendelsebehandler(
         }
 
         when (livshendelse.endringstype) {
-            Endringstype.ANNULLERT -> tellerFødselAnnulert.increment()
-            Endringstype.KORRIGERT -> tellerFødselKorrigert.increment()
-            Endringstype.OPPHOERT -> tellerFødselOpphørt.increment()
-            Endringstype.OPPRETTET -> tellerFødselOpprettet.increment()
+            Endringstype.ANNULLERT -> tellerFødselsdatoAnnulert.increment()
+            Endringstype.KORRIGERT -> tellerFødselsdatoKorrigert.increment()
+            Endringstype.OPPHOERT -> tellerFødselsdatoOpphørt.increment()
+            Endringstype.OPPRETTET -> tellerFødselsdatoOpprettet.increment()
         }
 
         when (livshendelse.endringstype) {
@@ -435,23 +435,19 @@ class Livshendelsebehandler(
                 sikkerLoggingAvLivshendelse(livshendelse, "fødselsdato: ${livshendelse.foedselsdato?.foedselsdato}")
                 val fødselsdato = livshendelse.foedselsdato?.foedselsdato
                 if (fødselsdato == null) {
-                    tellerFødselIgnorert.increment()
+                    tellerFødselsdatoIgnorert.increment()
                     log.warn("Mangler fødselsdato. Ignorerer hendelse ${livshendelse.hendelseid}")
                 } else if (erUnder6mnd(fødselsdato)) {
-                    tellerFødselIgnorert.increment()
+                    tellerFødselsdatoIgnorert.increment()
                     // Kontrollen på fødeland fjernes siden det nå ligger i ny opplysningstype. Tanken er at Bisys vil håndtere utenlandske fødsler ok
-//                    if (erUtenforNorge(livshendelse.foedselsdato.foedeland)) {
-//                        log.info("Fødeland er ikke Norge. Ignorerer hendelse ${livshendelse.hendelseid}")
-//                    } else {
                     databasetjeneste.lagreHendelse(livshendelse)
-//                    }
                 }
             }
 
             Endringstype.ANNULLERT -> {
                 sikkerLoggingAvLivshendelse(livshendelse)
                 if (livshendelse.tidligereHendelseid == null) {
-                    log.warn("Mottatt annullert fødsel uten tidligereHendelseId, hendelseId ${livshendelse.hendelseid}")
+                    log.warn("Mottatt annullert fødselsdato uten tidligereHendelseId, hendelseId ${livshendelse.hendelseid}")
                 } else {
                     databasetjeneste.lagreHendelse(livshendelse)
                 }
@@ -648,6 +644,18 @@ class Livshendelsebehandler(
             Metrics.counter(tellernavn(FØDSEL + ".${Endringstype.OPPHOERT.name.lowercase()}"))
         val tellerFødselOpprettet: Counter =
             Metrics.counter(tellernavn(FØDSEL + ".${Endringstype.OPPRETTET.name.lowercase()}"))
+
+        const val FØDSELSDATO = "foedselsdato"
+        val tellerFødselsdato: Counter = Metrics.counter(tellernavn(FØDSELSDATO))
+        val tellerFødselsdatoIgnorert: Counter = Metrics.counter(tellernavn(FØDSELSDATO + ".ignorert"))
+        val tellerFødselsdatoAnnulert: Counter =
+            Metrics.counter(tellernavn(FØDSELSDATO + ".${Endringstype.ANNULLERT.name.lowercase()}"))
+        val tellerFødselsdatoKorrigert: Counter =
+            Metrics.counter(tellernavn(FØDSELSDATO + ".${Endringstype.KORRIGERT.name.lowercase()}"))
+        val tellerFødselsdatoOpphørt: Counter =
+            Metrics.counter(tellernavn(FØDSELSDATO + ".${Endringstype.OPPHOERT.name.lowercase()}"))
+        val tellerFødselsdatoOpprettet: Counter =
+            Metrics.counter(tellernavn(FØDSELSDATO + ".${Endringstype.OPPRETTET.name.lowercase()}"))
 
         const val INNFLYTTING = "innflytting"
         val tellerInnflytting: Counter = Metrics.counter(tellernavn(INNFLYTTING))

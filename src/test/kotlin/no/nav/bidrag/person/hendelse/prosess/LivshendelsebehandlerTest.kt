@@ -6,6 +6,7 @@ import io.mockk.verify
 import no.nav.bidrag.person.hendelse.database.Databasetjeneste
 import no.nav.bidrag.person.hendelse.domene.Endringstype
 import no.nav.bidrag.person.hendelse.domene.Foedsel
+import no.nav.bidrag.person.hendelse.domene.Foedselsdato
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
 import no.nav.bidrag.person.hendelse.domene.Livshendelse.Opplysningstype
 import no.nav.bidrag.person.hendelse.domene.Sivilstand
@@ -94,6 +95,25 @@ class LivshendelsebehandlerTest {
     }
 
     @Test
+    fun `Skal prosessere fødselsdatomelding`() {
+        val hendelseId = UUID.randomUUID().toString()
+
+        val livshendelse =
+            oppretteLivshendelseForFødselsdato(
+                hendelseId,
+                Opplysningstype.FOEDSELSDATO_V1,
+                Endringstype.OPPRETTET,
+                Foedselsdato(LocalDate.now()),
+            )
+
+        service.prosesserNyHendelse(livshendelse)
+
+        verify(exactly = 1) {
+            mockDatabasetjeneste.lagreHendelse(livshendelse)
+        }
+    }
+
+    @Test
     fun `Skal ignorere fødselshendelser utenfor norge`() {
         val hendelseId = UUID.randomUUID().toString()
 
@@ -135,6 +155,27 @@ class LivshendelsebehandlerTest {
             null,
             null,
             foedsel,
+        )
+
+    fun oppretteLivshendelseForFødselsdato(
+        hendelseId: String,
+        opplysningstype: Opplysningstype,
+        endringstype: Endringstype,
+        foedselsdato: Foedselsdato,
+    ): Livshendelse =
+        Livshendelse(
+            hendelseId,
+            opplysningstype,
+            endringstype,
+            personidenter,
+            personidenter.first { it.length == 13 },
+            LocalDateTime.now(),
+            null,
+            null,
+            null,
+            null,
+            null,
+            foedselsdato,
         )
 
     fun oppretteLivshendelseForDødsfall(
