@@ -1,6 +1,6 @@
 package no.nav.bidrag.person.hendelse.integrasjon.pdl
 
-import no.nav.bidrag.person.hendelse.domene.Foedsel
+import no.nav.bidrag.person.hendelse.domene.Foedselsdato
 import no.nav.bidrag.person.hendelse.domene.Folkeregisteridentifikator
 import no.nav.bidrag.person.hendelse.domene.Innflytting
 import no.nav.bidrag.person.hendelse.domene.Livshendelse
@@ -102,7 +102,7 @@ class Livshendelsemottak(
                     personhendelse.oppholdsadresse,
                 ),
                 henteFolkeregisteridentifikator(personhendelse.folkeregisteridentifikator),
-                henteFødsel(personhendelse.foedsel),
+                henteFødselsdato(personhendelse.foedselsdato),
                 henteInnflytting(personhendelse.innflyttingTilNorge),
                 henteNavn(personhendelse.navn),
                 henteUtflytting(personhendelse.utflyttingFraNorge),
@@ -208,11 +208,11 @@ class Livshendelsemottak(
             )
         }
 
-    private fun henteFødsel(foedsel: no.nav.person.pdl.leesah.foedsel.Foedsel?): Foedsel? =
-        if (foedsel == null) {
+    private fun henteFødselsdato(foedselsdato: no.nav.person.pdl.leesah.foedselsdato.Foedselsdato?): Foedselsdato? =
+        if (foedselsdato == null) {
             null
         } else {
-            Foedsel(foedsel.foedeland?.toString(), foedsel.foedselsdato)
+            Foedselsdato(foedselsdato.foedselsdato, foedselsdato.foedselsaar)
         }
 
     private fun henteInnflytting(innflytting: no.nav.person.pdl.leesah.innflytting.InnflyttingTilNorge?): Innflytting? =

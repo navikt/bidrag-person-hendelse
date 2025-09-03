@@ -16,6 +16,7 @@ import no.nav.person.pdl.leesah.bostedsadresse.Bostedsadresse
 import no.nav.person.pdl.leesah.common.adresse.Vegadresse
 import no.nav.person.pdl.leesah.doedsfall.Doedsfall
 import no.nav.person.pdl.leesah.foedsel.Foedsel
+import no.nav.person.pdl.leesah.foedselsdato.Foedselsdato
 import no.nav.person.pdl.leesah.folkeregisteridentifikator.Folkeregisteridentifikator
 import no.nav.person.pdl.leesah.innflytting.InnflyttingTilNorge
 import no.nav.person.pdl.leesah.navn.Navn
@@ -174,9 +175,9 @@ class LivshendelsemottakTest {
     }
 
     @Test
-    fun `skal håndtere fødsel`() {
+    fun `skal håndtere fødselsdato`() {
         // gitt
-        val personhendelse = hentePersonhendelseForFødsel()
+        val personhendelse = hentePersonhendelseForFødselsdato()
 
         val cr =
             ConsumerRecord(
@@ -199,9 +200,10 @@ class LivshendelsemottakTest {
         // så
         val livshendelseSomSendesTilBehandling = slot<Livshendelse>()
         verify(exactly = 1) { livshendelsebehandler.prosesserNyHendelse(capture(livshendelseSomSendesTilBehandling)) }
-        assertThat(livshendelseSomSendesTilBehandling.captured.opplysningstype).isEqualTo(Opplysningstype.FOEDSEL_V1)
-        assertThat(livshendelseSomSendesTilBehandling.captured.foedsel?.foedeland).isEqualTo(personhendelse.foedsel.foedeland)
-        assertThat(livshendelseSomSendesTilBehandling.captured.foedsel?.foedselsdato).isEqualTo(personhendelse.foedsel.foedselsdato)
+        assertThat(livshendelseSomSendesTilBehandling.captured.opplysningstype).isEqualTo(Opplysningstype.FOEDSELSDATO_V1)
+        assertThat(
+            livshendelseSomSendesTilBehandling.captured.foedselsdato?.foedselsdato,
+        ).isEqualTo(personhendelse.foedselsdato.foedselsdato)
     }
 
     @Test
@@ -523,13 +525,12 @@ class LivshendelsemottakTest {
             return personhendelse
         }
 
-        fun hentePersonhendelseForFødsel(): Personhendelse {
-            val fødsel = Foedsel()
-            fødsel.foedeland = "NOR"
-            fødsel.foedselsdato = LocalDate.now()
+        fun hentePersonhendelseForFødselsdato(): Personhendelse {
+            val fødselsdato = Foedselsdato()
+            fødselsdato.foedselsdato = LocalDate.now()
             val personhendelse = henteMetadataTilPersonhendelse()
-            personhendelse.foedsel = fødsel
-            personhendelse.opplysningstype = Opplysningstype.FOEDSEL_V1.name
+            personhendelse.foedselsdato = fødselsdato
+            personhendelse.opplysningstype = Opplysningstype.FOEDSELSDATO_V1.name
 
             return personhendelse
         }
