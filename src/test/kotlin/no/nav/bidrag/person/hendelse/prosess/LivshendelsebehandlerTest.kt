@@ -110,6 +110,7 @@ class LivshendelsebehandlerTest {
             null,
             null,
             null,
+            null,
             foedselsdato,
         )
 
@@ -150,6 +151,7 @@ class LivshendelsebehandlerTest {
             null,
             null,
             null,
+            null,
             utflytting,
         )
 
@@ -166,6 +168,7 @@ class LivshendelsebehandlerTest {
             personidenter,
             personidenter.first { it.length == 13 },
             LocalDateTime.now(),
+            null,
             null,
             null,
             null,

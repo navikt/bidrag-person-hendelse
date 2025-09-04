@@ -27,6 +27,7 @@ class Livshendelsebehandler(
             Opplysningstype.UTFLYTTING_FRA_NORGE -> behandleUtflytting(livshendelse)
             Opplysningstype.SIVILSTAND_V1 -> behandleSivilstand(livshendelse)
             Opplysningstype.VERGEMAAL_ELLER_FREMTIDSFULLMAKT_V1 -> behandleVerge(livshendelse)
+            Opplysningstype.FOEDSEL_V1 -> log.error("Opplysningstype Foedsel ignoreres. Erstattet av Foedselsdato.")
             Opplysningstype.IKKE_STØTTET -> log.error("Forsøk på prosessere medling med opplysningstype som ikke støttes av løsningen.")
             Opplysningstype.KONTAKTADRESSE_V1 -> behandleAdresse(livshendelse, Opplysningstype.KONTAKTADRESSE_V1)
             Opplysningstype.OPPHOLDSADRESSE_V1 -> behandleAdresse(livshendelse, Opplysningstype.OPPHOLDSADRESSE_V1)
