@@ -20,6 +20,7 @@ data class Livshendelse(
     val doedsdato: LocalDate? = null,
     val flyttedato: LocalDate? = LocalDate.now(),
     val folkeregisteridentifikator: Folkeregisteridentifikator? = null,
+    val foedsel: Foedsel? = null,
     val foedselsdato: Foedselsdato? = null,
     val innflytting: Innflytting? = null,
     val navn: Navn? = null,
@@ -53,6 +54,7 @@ data class Livshendelse(
         VERGEMAAL_ELLER_FREMTIDSFULLMAKT_V1,
 
 //        FORELDERBARNRELASJON_V1,
+        FOEDSEL_V1,
         FOEDSELSDATO_V1,
         IKKE_STØTTET,
     }

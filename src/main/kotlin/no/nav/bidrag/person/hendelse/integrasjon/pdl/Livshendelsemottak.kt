@@ -61,7 +61,7 @@ class Livshendelsemottak(
 
         val opplysningstype = konvertereOpplysningstype(personhendelse.opplysningstype)
 
-        if (Livshendelse.Opplysningstype.IKKE_STØTTET == opplysningstype) {
+        if (Livshendelse.Opplysningstype.IKKE_STØTTET == opplysningstype || opplysningstype == Livshendelse.Opplysningstype.FOEDSEL_V1) {
             log.info("Mottok opplysningstype som ikke støttes av løsningen - avbryter videre prosessering.")
             slog.info("Mottok opplysningstype som ikke støttes av løsningen - avbryter videre prosessering. $personhendelse")
             return
@@ -102,6 +102,7 @@ class Livshendelsemottak(
                     personhendelse.oppholdsadresse,
                 ),
                 henteFolkeregisteridentifikator(personhendelse.folkeregisteridentifikator),
+                null,
                 henteFødselsdato(personhendelse.foedselsdato),
                 henteInnflytting(personhendelse.innflyttingTilNorge),
                 henteNavn(personhendelse.navn),
