@@ -32,7 +32,7 @@
         <logback.encoder.version>8.1</logback.encoder.version>
         <spring.cloud.version>4.3.0</spring.cloud.version>
         <spring-cloud-gcp.version>7.0.0</spring-cloud-gcp.version>
-        <spring-jms.version>5.3.39</spring-jms.version>
+        <spring-jms.version>6.2.11</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
         <shedlock.version>6.9.2</shedlock.version>
         <kotest.version>5.9.1</kotest.version>
