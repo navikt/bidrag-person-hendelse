@@ -34,7 +34,7 @@
         <spring-cloud-gcp.version>7.0.0</spring-cloud-gcp.version>
         <spring-jms.version>5.3.39</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
-        <shedlock.version>6.9.2</shedlock.version>
+        <shedlock.version>6.10.0</shedlock.version>
         <kotest.version>6.0.4</kotest.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
         <hibernate-validator.version>9.0.1.Final</hibernate-validator.version>
