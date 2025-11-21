@@ -58,7 +58,7 @@ class Kontoendringsmottak(
         return true
     }
 
-    fun harGylidgFormat(personident: String): Boolean = personident.isNotEmpty() && personident.length == 11 || personident.length == 13
+    fun harGylidgFormat(personident: String): Boolean = personident.isNotEmpty() && (personident.length == 11 || personident.length == 13)
 
     companion object {
         val log: Logger = LoggerFactory.getLogger(this::class.java)

@@ -11,35 +11,35 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.7</version>
     </parent>
 
     <properties>
         <revision>1.0</revision>
         <changelist>-SNAPSHOT</changelist>
         <activemq-client.version>5.17.6</activemq-client.version>
-        <bidrag-felles.version>2025.08.22.153257</bidrag-felles.version>
+        <bidrag-felles.version>2025.11.21.125511</bidrag-felles.version>
         <google.gson.version>2.13.1</google.gson.version>
         <java.version>21</java.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
-        <kotlin.version>2.2.0</kotlin.version>
-        <ktlint.version>1.7.1</ktlint.version>
-        <flyway-maven-plugin.version>11.10.4</flyway-maven-plugin.version>
-        <mockk.version>1.14.5</mockk.version>
+        <kotlin.version>2.2.20</kotlin.version>
+        <ktlint.version>1.8.0</ktlint.version>
+        <flyway-maven-plugin.version>11.10.5</flyway-maven-plugin.version>
+        <mockk.version>1.14.6</mockk.version>
         <apache.avro.version>1.12.0</apache.avro.version>
         <confluent.version>8.0.0</confluent.version>
         <ibm.mq.allclient.version>9.4.3.0</ibm.mq.allclient.version>
-        <logback.encoder.version>8.1</logback.encoder.version>
+        <logback.encoder.version>9.0</logback.encoder.version>
         <spring.cloud.version>4.3.0</spring.cloud.version>
         <spring-cloud-gcp.version>7.0.0</spring-cloud-gcp.version>
         <spring-jms.version>5.3.39</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
-        <shedlock.version>6.9.2</shedlock.version>
-        <kotest.version>5.9.1</kotest.version>
+        <shedlock.version>6.10.0</shedlock.version>
+        <kotest.version>6.0.4</kotest.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
         <hibernate-validator.version>9.0.1.Final</hibernate-validator.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
-        <token-support.version>5.0.30</token-support.version>
+        <token-support.version>5.0.37</token-support.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     </properties>
 
