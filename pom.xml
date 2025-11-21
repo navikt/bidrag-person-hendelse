@@ -35,7 +35,7 @@
         <spring-jms.version>5.3.39</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
         <shedlock.version>6.9.2</shedlock.version>
-        <kotest.version>5.9.1</kotest.version>
+        <kotest.version>6.0.4</kotest.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
         <hibernate-validator.version>9.0.1.Final</hibernate-validator.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
