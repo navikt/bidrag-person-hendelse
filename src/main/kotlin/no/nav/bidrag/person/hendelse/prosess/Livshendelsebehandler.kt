@@ -103,8 +103,15 @@ class Livshendelsebehandler(
             Opplysningstype.BOSTEDSADRESSE_V1 -> {
                 tellerBostedsadresse.increment()
             }
-            Opplysningstype.KONTAKTADRESSE_V1 -> tellerKontaktadresse.increment()
-            Opplysningstype.OPPHOLDSADRESSE_V1 -> tellerOppholdsadresse.increment()
+
+            Opplysningstype.KONTAKTADRESSE_V1 -> {
+                tellerKontaktadresse.increment()
+            }
+
+            Opplysningstype.OPPHOLDSADRESSE_V1 -> {
+                tellerOppholdsadresse.increment()
+            }
+
             else -> {
                 return
             }
@@ -124,9 +131,18 @@ class Livshendelsebehandler(
         }
 
         when (opplysningstype) {
-            Opplysningstype.BOSTEDSADRESSE_V1 -> telleBostedsadresse(livshendelse.endringstype)
-            Opplysningstype.KONTAKTADRESSE_V1 -> telleKontaktsadresse(livshendelse.endringstype)
-            Opplysningstype.OPPHOLDSADRESSE_V1 -> telleOppholdsadresse(livshendelse.endringstype)
+            Opplysningstype.BOSTEDSADRESSE_V1 -> {
+                telleBostedsadresse(livshendelse.endringstype)
+            }
+
+            Opplysningstype.KONTAKTADRESSE_V1 -> {
+                telleKontaktsadresse(livshendelse.endringstype)
+            }
+
+            Opplysningstype.OPPHOLDSADRESSE_V1 -> {
+                telleOppholdsadresse(livshendelse.endringstype)
+            }
+
             else -> {
                 return
             }
