@@ -40,7 +40,7 @@
         <hibernate-validator.version>9.0.1.Final</hibernate-validator.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <token-support.version>5.0.37</token-support.version>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-antrun-plugin.version>3.1.1</maven-antrun-plugin.version>
     </properties>
 
     <dependencies>
