@@ -29,7 +29,7 @@
         <apache.avro.version>1.12.0</apache.avro.version>
         <confluent.version>8.0.0</confluent.version>
         <ibm.mq.allclient.version>9.4.3.0</ibm.mq.allclient.version>
-        <logback.encoder.version>8.1</logback.encoder.version>
+        <logback.encoder.version>9.0</logback.encoder.version>
         <spring.cloud.version>4.3.0</spring.cloud.version>
         <spring-cloud-gcp.version>7.0.0</spring-cloud-gcp.version>
         <spring-jms.version>5.3.39</spring-jms.version>
