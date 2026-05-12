@@ -30,7 +30,6 @@
         <confluent.version>8.0.0</confluent.version>
         <ibm.mq.allclient.version>9.4.3.0</ibm.mq.allclient.version>
         <logback.encoder.version>9.0</logback.encoder.version>
-        <spring.cloud.version>4.3.0</spring.cloud.version>
         <spring-jms.version>5.3.39</spring-jms.version>
         <unleash-client-java.version>4.4.1</unleash-client-java.version>
         <shedlock.version>7.5.0</shedlock.version>
@@ -386,7 +385,7 @@
                 <executions>
                     <execution>
                         <id>compile</id>
-                        <phase>compile</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
