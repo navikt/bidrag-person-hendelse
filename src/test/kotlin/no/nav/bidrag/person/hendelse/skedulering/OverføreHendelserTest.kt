@@ -136,7 +136,7 @@ class OverføreHendelserTest {
         assertThat(meldingerTilKø.captured[0]).contains(hendelseMottattUtenforVenteperiode.hendelseid)
         assertThat(
             databasetjeneste.hendelsemottakDao
-                .findById(lagretHendelseVenteperiodeUtløpt.id)
+                .findById(lagretHendelseVenteperiodeUtløpt.id!!)
                 .get()
                 .status,
         ).isEqualTo(Status.OVERFØRING_FEILET)

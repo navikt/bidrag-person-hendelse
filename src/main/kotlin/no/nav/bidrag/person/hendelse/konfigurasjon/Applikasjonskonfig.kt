@@ -1,5 +1,11 @@
 package no.nav.bidrag.person.hendelse.konfigurasjon
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.util.StdDateFormat
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import net.javacrumbs.shedlock.provider.jdbctemplate.JdbcTemplateLockProvider
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock
 import no.nav.bidrag.commons.ExceptionLogger
@@ -8,10 +14,10 @@ import no.nav.bidrag.commons.web.config.RestOperationsAzure
 import no.nav.bidrag.commons.web.config.RestTemplateBuilderBean
 import no.nav.bidrag.person.hendelse.konfigurasjon.Applikasjonskonfig.Companion.PROFIL_I_SKY
 import no.nav.bidrag.person.hendelse.konfigurasjon.Applikasjonskonfig.Companion.PROFIL_LOKAL_POSTGRES
-import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
-import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory
+import org.springframework.boot.jetty.servlet.JettyServletWebServerFactory
+import org.springframework.boot.persistence.autoconfigure.EntityScan
+import org.springframework.boot.web.server.servlet.ServletWebServerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -45,6 +51,14 @@ class Applikasjonskonfig {
 
     @Bean
     fun clientRequestObservationConvention(): ClientRequestObservationConvention = DefaultClientRequestObservationConvention()
+
+    @Bean fun objectMapper(): ObjectMapper =
+        ObjectMapper()
+            .registerModule(KotlinModule.Builder().build())
+            .registerModule(JavaTimeModule())
+            .setDateFormat(StdDateFormat())
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 }
 
 @Configuration

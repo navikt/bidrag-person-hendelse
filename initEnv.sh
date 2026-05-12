@@ -1,5 +1,5 @@
 #!/bin/bash
-kubectx nais-dev
+kubectx dev-gcp
 
 deployment="deployment/bidrag-person-hendelse"
 echo "Henter miljøparametere fra deployment: $deployment"

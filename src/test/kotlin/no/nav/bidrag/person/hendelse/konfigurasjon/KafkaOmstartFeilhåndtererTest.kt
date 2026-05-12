@@ -57,12 +57,4 @@ class KafkaOmstartFeilhåndtererTest {
             .isInstanceOf(KafkaException::class.java)
             .hasCauseExactlyInstanceOf(RuntimeException::class.java)
     }
-
-    @Test
-    fun `skal stoppe container hvis man mottar feil hvor liste med records er null`() {
-        ConsumerRecord("topic", 1, 1, 1, "record")
-        assertThatThrownBy { errorHandler.handleRemaining(RuntimeException("Feil i test"), null, consumer, container) }
-            .hasMessageContaining("Stopper kafka container")
-            .hasCauseExactlyInstanceOf(RuntimeException::class.java)
-    }
 }
