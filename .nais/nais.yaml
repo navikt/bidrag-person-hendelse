@@ -15,7 +15,6 @@ spec:
       destinations:
         - id: loki
         - id: elastic
-        - id: secure_logs
   azure:
     application:
       enabled: true
@@ -30,8 +29,6 @@ spec:
       rules:
        - application: logging
          namespace: nais-system
-  secureLogs:
-    enabled: true
   image: {{ image }}
   port: 8090
   tokenx:
