@@ -18,7 +18,7 @@
         <revision>1.0</revision>
         <changelist>-SNAPSHOT</changelist>
         <activemq-client.version>6.2.5</activemq-client.version>
-        <bidrag-felles.version>2026.05.12.121707-SB4</bidrag-felles.version>
+        <bidrag-felles.version>2026.05.13.140439-SB4</bidrag-felles.version>
         <google.gson.version>2.13.1</google.gson.version>
         <java.version>21</java.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
