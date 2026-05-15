@@ -5,9 +5,8 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.OffsetResetStrategy
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.IsolationLevel
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -43,14 +42,17 @@ class Kafkakonfig(
         properties.properties[KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG] = "true"
         val factory = ConcurrentKafkaListenerContainerFactory<Int, GenericRecord>()
         factory.containerProperties.ackMode = ContainerProperties.AckMode.BATCH
-        factory.containerProperties.authExceptionRetryInterval = Duration.ofSeconds(2)
-        factory.consumerFactory =
+        factory.containerProperties.setAuthExceptionRetryInterval(Duration.ofSeconds(2))
+        factory.setConsumerFactory(
             DefaultKafkaConsumerFactory(
                 properties.buildConsumerProperties().also {
                     it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = OffsetResetStrategy.EARLIEST.toString().lowercase()
-                    it[ConsumerConfig.ISOLATION_LEVEL_CONFIG] = IsolationLevel.READ_COMMITTED.name.lowercase()
+                    it[ConsumerConfig.ISOLATION_LEVEL_CONFIG] =
+                        KafkaProperties.IsolationLevel.READ_COMMITTED.name
+                            .lowercase()
                 },
-            )
+            ),
+        )
         factory.setCommonErrorHandler(kafkaOmstartFeilhåndterer)
         return factory
     }

@@ -67,9 +67,9 @@ class DatabasetjenesteTest {
                 databasetjeneste.lagreHendelse(annulleringAvOpprinneligHendelse)
 
             // så
-            val lagretOpprinneligHendelseEtterKansellering = hendelsemottakDao.findById(lagretOpprinneligHendelse.id)
+            val lagretOpprinneligHendelseEtterKansellering = hendelsemottakDao.findById(lagretOpprinneligHendelse.id!!)
             val lagretNyHendelseEtterKansellering =
-                hendelsemottakDao.findById(lagretAnnulleringAvOpprinneligHendelse.id)
+                hendelsemottakDao.findById(lagretAnnulleringAvOpprinneligHendelse.id!!)
 
             assertSoftly {
                 lagretOpprinneligHendelseEtterKansellering.isPresent
@@ -173,7 +173,7 @@ class DatabasetjenesteTest {
 
             // så
             val lagretNyHendelseEtterKansellering =
-                hendelsemottakDao.findById(lagretAnnulleringAvOpprinneligHendelse.id)
+                hendelsemottakDao.findById(lagretAnnulleringAvOpprinneligHendelse.id!!)
 
             assertSoftly {
                 lagretNyHendelseEtterKansellering.isPresent

@@ -27,5 +27,5 @@ class KafkaTestdataProdusentkonfig(
 
     @Bean
     @Qualifier("testdata")
-    fun kafkaTemplateTestdata(): KafkaTemplate<String?, String?>? = KafkaTemplate(producerFactory())
+    fun kafkaTemplateTestdata(): KafkaTemplate<String, String>? = KafkaTemplate(producerFactory())
 }

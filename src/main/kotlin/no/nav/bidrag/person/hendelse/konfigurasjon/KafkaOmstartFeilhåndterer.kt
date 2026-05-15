@@ -22,13 +22,13 @@ class KafkaOmstartFeilhåndterer : CommonContainerStoppingErrorHandler() {
 
     override fun handleRemaining(
         e: Exception,
-        records: List<ConsumerRecord<*, *>>?,
+        records: List<ConsumerRecord<*, *>>,
         consumer: Consumer<*, *>,
         container: MessageListenerContainer,
     ) {
         Thread.sleep(1000)
 
-        if (records.isNullOrEmpty()) {
+        if (records.isEmpty()) {
             LOGGER.warn("Feil ved konsumering av melding. Ingen records. ${consumer.subscription()}", e)
             scheduleRestart(
                 e,
@@ -98,7 +98,7 @@ class KafkaOmstartFeilhåndterer : CommonContainerStoppingErrorHandler() {
         // isRunning is false before the container.stop() waits for listener thread
         try {
             ListenerUtils.stoppableSleep(container, 10000) // NOSONAR
-        } catch (e: InterruptedException) {
+        } catch (_: InterruptedException) {
             Thread.currentThread().interrupt()
         }
     }

@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   mq:
     container_name: ibmmq_livshendelse_container
@@ -13,5 +12,14 @@ services:
       - "9445:9445"
     volumes:
       - qm1data:/mnt/mqm
+    platform: linux/amd64
+  database:
+    image: postgres:17
+    ports:
+      - "5456:5432"
+    environment:
+      POSTGRES_USER: cloudsqliamuser
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: bidrag-person-hendelse
 volumes:
   qm1data:
