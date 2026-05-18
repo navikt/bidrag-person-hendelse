@@ -27,7 +27,7 @@
         <flyway-maven-plugin.version>11.10.5</flyway-maven-plugin.version>
         <mockk.version>1.14.9</mockk.version>
         <apache.avro.version>1.12.1</apache.avro.version>
-        <confluent.version>8.0.0</confluent.version>
+        <confluent.version>8.2.1</confluent.version>
         <ibm.mq.allclient.version>9.4.5.1</ibm.mq.allclient.version>
         <logback.encoder.version>9.0</logback.encoder.version>
         <spring-jms.version>5.3.39</spring-jms.version>
