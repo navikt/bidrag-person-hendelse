@@ -1,4 +1,11 @@
 # bidrag-person-hendelse
+
+## ⚠️ DETTE REPOET ER FLYTTET
+
+> **Dette repoet er flyttet til [navikt/bidrag-backend](https://github.com/navikt/bidrag-backend).**
+> Bruk det nye repoet for videre utvikling — dette repoet oppdateres ikke lenger.
+
+
 Mottaksapplikasjon for personhendelser. Lytter på ulike hendelser fra PDL (fødsler, dødsfall mm). Distribuerer disse videre til Bisys via MQ. 
 
 ## Monitorering
