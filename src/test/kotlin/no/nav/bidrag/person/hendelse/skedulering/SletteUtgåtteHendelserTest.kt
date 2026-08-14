@@ -80,14 +80,14 @@ class SletteUtgåtteHendelserTest {
 
         // så
         assertSoftly {
-            assertThat(hendelsemottakDao.findById(kansellertHendelse1.id)).isEmpty
-            assertThat(hendelsemottakDao.findById(kansellertHendelse2.id)).isEmpty
-            assertThat(hendelsemottakDao.findById(kansellertHendelseUtenforSlettevindu.id)).isPresent
-            assertThat(hendelsemottakDao.findById(mottattHendelseInnenforSlettevindu.id)).isPresent
-            assertThat(hendelsemottakDao.findById(mottattHendelseUtenforSlettevindu.id)).isPresent
-            assertThat(hendelsemottakDao.findById(publisertHendelse1.id)).isEmpty
-            assertThat(hendelsemottakDao.findById(publisertHendelse2.id)).isEmpty
-            assertThat(hendelsemottakDao.findById(publisertHendelseUtenforSlettevindu.id)).isPresent
+            assertThat(hendelsemottakDao.findById(kansellertHendelse1.id!!)).isEmpty
+            assertThat(hendelsemottakDao.findById(kansellertHendelse2.id!!)).isEmpty
+            assertThat(hendelsemottakDao.findById(kansellertHendelseUtenforSlettevindu.id!!)).isPresent
+            assertThat(hendelsemottakDao.findById(mottattHendelseInnenforSlettevindu.id!!)).isPresent
+            assertThat(hendelsemottakDao.findById(mottattHendelseUtenforSlettevindu.id!!)).isPresent
+            assertThat(hendelsemottakDao.findById(publisertHendelse1.id!!)).isEmpty
+            assertThat(hendelsemottakDao.findById(publisertHendelse2.id!!)).isEmpty
+            assertThat(hendelsemottakDao.findById(publisertHendelseUtenforSlettevindu.id!!)).isPresent
         }
     }
 

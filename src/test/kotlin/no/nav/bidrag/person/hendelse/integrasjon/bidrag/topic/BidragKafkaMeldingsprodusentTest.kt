@@ -115,7 +115,7 @@ class BidragKafkaMeldingsprodusentTest {
             aktør.get().publisert shouldNotBe null
         }
 
-        val oppdatertHendelsemottak = hendelsemottakDao.findById(hendelsemottak.id)
+        val oppdatertHendelsemottak = hendelsemottakDao.findById(hendelsemottak.id!!)
         assertSoftly {
             oppdatertHendelsemottak.isPresent
             oppdatertHendelsemottak.get().status shouldBe Status.PUBLISERT

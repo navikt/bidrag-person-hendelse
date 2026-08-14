@@ -37,11 +37,11 @@ spec:
     pool: {{ kafka.pool }}
   liveness:
     path: /actuator/health
-    initialDelay: 60
+    initialDelay: 30
     failureThreshold: 10
   readiness:
     path: /actuator/health
-    initialDelay: 60
+    initialDelay: 30
     failureThreshold: 10
   prometheus:
     enabled: true
