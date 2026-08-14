@@ -70,7 +70,7 @@ spec:
         - name: "cloudsql.enable_pgaudit"
           value: "{{ database.auditlog }}"
         - name: "pgaudit.log"
-          value: "write"
+          value: "write,role,ddl"
         - name: "pgaudit.log_parameter"
           value: "on"
     permissions:
